@@ -107,7 +107,8 @@ The GitHub Actions workflow in `.github/workflows/ci.yml` validates the same rel
 - Repository structure exists: `app/Dockerfile`, `app/index.html`, `infra/`, and `docs/`
 - Docker image builds from `./app`
 - Container starts on `localhost:8080`
-- Smoke test succeeds with `curl --fail`
+- Smoke test waits for Nginx readiness and succeeds with `curl --fail`
+- Docker diagnostics print `docker ps -a` and `docker logs` if validation fails
 - Container is cleaned up even if the smoke test fails
 - Terraform formatting passes
 - Terraform initializes with `-backend=false`
@@ -127,7 +128,26 @@ test -d docs
 
 docker build -t mini-release-platform ./app
 docker run -d -p 8080:80 --name mini-release-platform mini-release-platform
-curl --fail http://localhost:8080
+
+ready=false
+for attempt in {1..30}; do
+  if curl --fail http://localhost:8080; then
+    ready=true
+    break
+  fi
+
+  echo "Application is not ready yet. Attempt ${attempt}/30."
+  sleep 2
+done
+
+if [ "$ready" != "true" ]; then
+  docker ps -a
+  docker logs mini-release-platform || true
+  docker stop mini-release-platform || true
+  docker rm mini-release-platform || true
+  exit 1
+fi
+
 docker stop mini-release-platform
 docker rm mini-release-platform
 

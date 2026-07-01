@@ -167,7 +167,8 @@ GitHub Actions runs the same checks expected from a pull request:
 - Check the expected repository structure exists
 - Build the Docker image
 - Run the container on `localhost:8080`
-- Smoke test the application with `curl --fail`
+- Wait for Nginx readiness and smoke test the application with `curl --fail`
+- Print `docker ps -a` and `docker logs` if the smoke test fails
 - Clean up the container even if the smoke test fails
 - Check Terraform formatting
 - Initialize Terraform without a backend

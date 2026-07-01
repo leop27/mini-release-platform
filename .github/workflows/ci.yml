@@ -35,9 +35,34 @@ jobs:
       - name: Run Docker container
         run: docker run -d -p 8080:80 --name mini-release-platform mini-release-platform
 
-      # Verify that the app responds through Nginx.
+      # Wait until Nginx is ready, then verify the app responds over HTTP.
       - name: Smoke test application
-        run: curl --fail --silent --show-error --retry 5 --retry-delay 2 --retry-connrefused http://localhost:8080
+        run: |
+          for attempt in {1..30}; do
+            if ! docker ps --filter "name=mini-release-platform" --filter "status=running" --format "{{.Names}}" | grep -qx "mini-release-platform"; then
+              echo "Container is not running."
+              exit 1
+            fi
+
+            if curl --fail --silent --show-error http://localhost:8080 > /tmp/mini-release-platform-response.html; then
+              echo "Application responded successfully."
+              head -n 5 /tmp/mini-release-platform-response.html
+              exit 0
+            fi
+
+            echo "Application is not ready yet. Attempt ${attempt}/30."
+            sleep 2
+          done
+
+          echo "Application did not become ready within 60 seconds."
+          exit 1
+
+      # Print useful diagnostics only when the Docker run or smoke test fails.
+      - name: Diagnose Docker failure
+        if: failure()
+        run: |
+          docker ps -a
+          docker logs mini-release-platform || true
 
       # Always remove the container, even if the smoke test fails.
       - name: Cleanup Docker container
