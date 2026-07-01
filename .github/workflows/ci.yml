@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate project
+    runs-on: ubuntu-latest
+
+    steps:
+      # Fetch the repository content for all validation steps.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Fail fast if the expected MVP structure is missing.
+      - name: Validate repository structure
+        run: |
+          test -f app/Dockerfile
+          test -f app/index.html
+          test -d infra
+          test -d docs
+
+      # Build the static application image from the app directory.
+      - name: Build Docker image
+        run: docker build -t mini-release-platform ./app
+
+      # Start the container locally on the runner.
+      - name: Run Docker container
+        run: docker run -d -p 8080:80 --name mini-release-platform mini-release-platform
+
+      # Verify that the app responds through Nginx.
+      - name: Smoke test application
+        run: curl --fail --silent --show-error --retry 5 --retry-delay 2 --retry-connrefused http://localhost:8080
+
+      # Always remove the container, even if the smoke test fails.
+      - name: Cleanup Docker container
+        if: always()
+        run: |
+          docker stop mini-release-platform || true
+          docker rm mini-release-platform || true
+
+      # Install Terraform for format and syntax validation only.
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.5
+
+      # Enforce consistent Terraform formatting.
+      - name: Check Terraform formatting
+        run: terraform fmt -check -recursive infra
+
+      # Initialize Terraform without remote state or backend configuration.
+      - name: Initialize Terraform without backend
+        run: terraform -chdir=infra init -backend=false
+
+      # Validate Terraform syntax without applying changes.
+      - name: Validate Terraform
+        run: terraform -chdir=infra validate

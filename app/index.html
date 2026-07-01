@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>mini-release-platform</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #f6f8fa;
+        color: #1f2328;
+      }
+
+      main {
+        width: min(680px, calc(100% - 32px));
+        padding: 40px;
+        border: 1px solid #d0d7de;
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.1;
+      }
+
+      p {
+        margin: 0 0 16px;
+        color: #57606a;
+      }
+
+      ul {
+        margin: 24px 0 0;
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      code {
+        padding: 2px 6px;
+        border-radius: 6px;
+        background: #f6f8fa;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>mini-release-platform</h1>
+      <p>
+        Static application served by Docker and Nginx, prepared for a simple
+        GitHub-to-AWS release platform.
+      </p>
+      <ul>
+        <li>Application: <code>app/</code></li>
+        <li>Infrastructure: <code>infra/</code></li>
+        <li>CI/CD validation: <code>.github/workflows/ci.yml</code></li>
+        <li>Operational docs: <code>docs/</code></li>
+      </ul>
+    </main>
+  </body>
+</html>
