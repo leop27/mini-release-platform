@@ -4,7 +4,7 @@
 
 The release process should be predictable, reviewable, and easy to rollback.
 
-This MVP validates the project but does not deploy it yet.
+This project validates the app and infrastructure, then deploys static files to S3 after changes are merged to `main`.
 
 ## Current Flow
 
@@ -14,28 +14,39 @@ This MVP validates the project but does not deploy it yet.
 4. GitHub Actions runs CI validation.
 5. Review the pull request.
 6. Merge to `main` when validation passes.
+7. GitHub Actions runs the deploy workflow on `main`.
+8. The deploy workflow validates the project again.
+9. If validation succeeds, `app/` is synced to the configured S3 website bucket.
 
 ## CI Validation
 
 The CI workflow checks:
 
 - Docker image build
+- Docker container smoke test
 - Terraform formatting
 - Terraform initialization without backend
 - Terraform validation
 
-The workflow does not require AWS credentials.
+The CI workflow does not require AWS credentials.
 
-## Future Deployment Flow
+## Deployment Flow
 
-A future deployment workflow should:
+The deployment workflow:
 
-1. Build and tag the artifact.
-2. Run infrastructure validation.
-3. Require manual approval for production-like environments.
-4. Deploy the selected version.
-5. Run smoke checks.
-6. Publish release notes.
+1. Runs only on `push` to `main`.
+2. Repeats build and validation checks.
+3. Configures AWS credentials from GitHub Secrets.
+4. Runs `aws s3 sync app/ s3://$S3_BUCKET/ --delete --exclude "Dockerfile"`.
+5. Does not run `terraform apply`.
+6. Does not create AWS resources.
+
+Required GitHub Secrets:
+
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_REGION`
+- `S3_BUCKET`
 
 ## Release Principles
 

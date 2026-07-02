@@ -98,7 +98,7 @@ Do not run:
 terraform apply
 ```
 
-This Sprint 1 project is validation-only and does not deploy AWS resources.
+Local validation does not deploy AWS resources. S3 deployment happens only through the separate GitHub Actions deploy workflow on `push` to `main`.
 
 ## CI Validation
 
@@ -115,6 +115,8 @@ The GitHub Actions workflow in `.github/workflows/ci.yml` validates the same rel
 - Terraform validates without applying changes
 
 The workflow does not use AWS credentials, secrets, or `terraform apply`.
+
+The deployment workflow in `.github/workflows/deploy.yml` runs only on `push` to `main`. It repeats validation first, then syncs `app/` to the configured S3 bucket using GitHub Secrets.
 
 ## Local Equivalent Of CI
 

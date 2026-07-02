@@ -51,7 +51,8 @@ It is designed for an SRE Release / DevOps portfolio: small enough to review qui
 |   `-- outputs.tf
 |-- .github/
 |   `-- workflows/
-|       `-- ci.yml
+|       |-- ci.yml
+|       `-- deploy.yml
 |-- .gitignore
 `-- README.md
 ```
@@ -65,8 +66,6 @@ It is designed for an SRE Release / DevOps portfolio: small enough to review qui
 
 ## What Is Not Included Yet
 
-- No production deployment
-- No AWS resources created by default
 - No Kubernetes
 - No managed database
 - No NAT Gateway or expensive always-on infrastructure
@@ -158,7 +157,7 @@ Validate Terraform syntax:
 terraform -chdir=infra validate
 ```
 
-Important: do not run `terraform apply` for this MVP. There are no resources to deploy yet, and deployment will be added as a later, controlled iteration.
+Important: do not run `terraform apply` as part of CI or deploy. Infrastructure changes should be reviewed and applied manually from a controlled environment.
 
 ## CI Validation
 
@@ -174,9 +173,71 @@ GitHub Actions runs the same checks expected from a pull request:
 - Initialize Terraform without a backend
 - Validate Terraform syntax
 
-The workflow is intentionally validation-only. It does not use secrets, does not require AWS credentials, does not run `terraform apply`, and does not deploy to AWS.
+The CI workflow is intentionally validation-only. It does not use secrets, does not require AWS credentials, does not run `terraform apply`, and does not deploy to AWS.
 
 For a step-by-step local and CI validation runbook, see [docs/04-local-validation.md](docs/04-local-validation.md).
+
+## S3 Deployment
+
+The deployment workflow lives in `.github/workflows/deploy.yml`.
+
+It runs only on `push` to `main` and uses two jobs:
+
+- `validate`: repeats the build, Docker smoke test, and Terraform validation checks.
+- `deploy`: syncs the static application files from `app/` to the existing S3 website bucket.
+
+The deploy job runs only if validation succeeds.
+
+Configure these GitHub repository secrets before enabling deployment:
+
+```text
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_REGION
+S3_BUCKET
+```
+
+For the current dev environment:
+
+```text
+AWS_REGION=us-east-1
+S3_BUCKET=mini-release-platform-dev-32ffc51b
+```
+
+Use an IAM user or role scoped to this bucket instead of broad administrator credentials. The deployment needs permissions to list the bucket and put/delete objects under it.
+
+Example least-privilege policy for this bucket:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::mini-release-platform-dev-32ffc51b"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::mini-release-platform-dev-32ffc51b/*"
+    }
+  ]
+}
+```
+
+The workflow deploys with:
+
+```bash
+aws s3 sync app/ "s3://${S3_BUCKET}/" --delete --exclude "Dockerfile"
+```
+
+`Dockerfile` is excluded because the S3 website bucket should contain static site files, not container build metadata.
+
+The deployment workflow does not run `terraform apply`, does not create AWS resources, and does not hardcode credentials.
 
 ## Architecture
 
@@ -216,8 +277,8 @@ The current release flow is:
 4. Run CI validation.
 5. Review the change.
 6. Merge to `main` when checks pass.
-
-Deployment is deliberately excluded from the MVP. A future version will add a manual deployment workflow after the infrastructure target is defined.
+7. On push to `main`, the deploy workflow validates the project again.
+8. If validation succeeds, GitHub Actions syncs `app/` to the configured S3 bucket.
 
 See [docs/02-release-flow.md](docs/02-release-flow.md).
 
@@ -282,9 +343,14 @@ The project is in scaffold stage:
 
 - Application: ready for local Docker build
 - CI: validation workflow defined
-- Terraform: AWS-ready structure, with no provider or resources configured until the next infrastructure iteration
+- Terraform: S3 static website infrastructure created for the dev environment
 - Docs: architecture, release flow, and rollback notes included
 - Sprint 1: local run and validation process documented
 - Sprint 2: GitHub Actions CI validates structure, Docker, smoke test, and Terraform
+- Sprint 5: GitHub Actions deploy syncs static files to S3 on push to `main`
 
-No deployment has been performed.
+Current website endpoint:
+
+```text
+http://mini-release-platform-dev-32ffc51b.s3-website-us-east-1.amazonaws.com
+```

@@ -1,0 +1,129 @@
+name: Deploy static site
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Build and validate
+    runs-on: ubuntu-latest
+
+    steps:
+      # Fetch the repository content for validation and deployment.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Fail fast if the expected MVP structure is missing.
+      - name: Validate repository structure
+        run: |
+          test -f app/Dockerfile
+          test -f app/index.html
+          test -d infra
+          test -d docs
+
+      # Build the static application image from the app directory.
+      - name: Build Docker image
+        run: docker build -t mini-release-platform ./app
+
+      # Start the container locally on the runner.
+      - name: Run Docker container
+        run: docker run -d -p 8080:80 --name mini-release-platform mini-release-platform
+
+      # Wait until Nginx is ready, then verify the app responds over HTTP.
+      - name: Smoke test application
+        run: |
+          for attempt in {1..30}; do
+            if ! docker ps --filter "name=mini-release-platform" --filter "status=running" --format "{{.Names}}" | grep -qx "mini-release-platform"; then
+              echo "Container is not running."
+              exit 1
+            fi
+
+            if curl --fail --silent --show-error http://localhost:8080 > /tmp/mini-release-platform-response.html; then
+              echo "Application responded successfully."
+              head -n 5 /tmp/mini-release-platform-response.html
+              exit 0
+            fi
+
+            echo "Application is not ready yet. Attempt ${attempt}/30."
+            sleep 2
+          done
+
+          echo "Application did not become ready within 60 seconds."
+          exit 1
+
+      # Print useful diagnostics only when the Docker run or smoke test fails.
+      - name: Diagnose Docker failure
+        if: failure()
+        run: |
+          docker ps -a
+          docker logs mini-release-platform || true
+
+      # Always remove the container, even if the smoke test fails.
+      - name: Cleanup Docker container
+        if: always()
+        run: |
+          docker stop mini-release-platform || true
+          docker rm mini-release-platform || true
+
+      # Install Terraform for format and syntax validation only.
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.5
+
+      # Enforce consistent Terraform formatting.
+      - name: Check Terraform formatting
+        run: terraform fmt -check -recursive infra
+
+      # Initialize Terraform without remote state or backend configuration.
+      - name: Initialize Terraform without backend
+        run: terraform -chdir=infra init -backend=false
+
+      # Validate Terraform syntax without applying changes.
+      - name: Validate Terraform
+        run: terraform -chdir=infra validate
+
+  deploy:
+    name: Sync app to S3
+    runs-on: ubuntu-latest
+    needs: validate
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+
+    steps:
+      # Fetch the repository content to upload the app directory.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Stop early if required deployment secrets are not configured.
+      - name: Validate deployment configuration
+        run: |
+          test -n "$AWS_ACCESS_KEY_ID" || { echo "Missing AWS_ACCESS_KEY_ID secret."; exit 1; }
+          test -n "$AWS_SECRET_ACCESS_KEY" || { echo "Missing AWS_SECRET_ACCESS_KEY secret."; exit 1; }
+          test -n "$AWS_REGION" || { echo "Missing AWS_REGION secret."; exit 1; }
+          test -n "$S3_BUCKET" || { echo "Missing S3_BUCKET secret."; exit 1; }
+          test -f app/index.html
+
+      # Configure AWS credentials from GitHub Secrets.
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Publish only static site files to the existing S3 website bucket.
+      - name: Sync static site to S3
+        run: |
+          aws s3 sync app/ "s3://${S3_BUCKET}/" \
+            --delete \
+            --exclude "Dockerfile"

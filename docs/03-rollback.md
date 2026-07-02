@@ -4,7 +4,7 @@
 
 Rollback is the process for restoring a previously known-good state when a release causes a user-facing or operational issue.
 
-This MVP does not deploy yet, so rollback is documented as an operational pattern for future releases.
+This project deploys static files to S3 from GitHub Actions after changes are merged to `main`, so rollback focuses on restoring the previous known-good static site version and keeping infrastructure changes reviewed separately.
 
 ## Application Rollback
 
@@ -13,7 +13,7 @@ Preferred path:
 1. Identify the last known-good commit or release tag.
 2. Revert the faulty change in Git.
 3. Run CI validation.
-4. Redeploy the previous known-good artifact.
+4. Merge or rerun the previous known-good version through the deployment workflow.
 5. Run smoke checks.
 
 For a static site, rollback should be fast because the artifact is small and has no database migration dependency.
