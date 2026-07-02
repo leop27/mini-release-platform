@@ -182,19 +182,87 @@ h3 {
 }
 
 .cards,
-.journal-grid {
+.journal-grid,
+.project-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 
 .card,
-.journal-grid article {
+.journal-grid article,
+.project-card {
   min-height: 250px;
-  padding: 26px;
   border: 1px solid rgba(23, 32, 42, 0.13);
   border-radius: 8px;
   background: #ffffff;
+  overflow: hidden;
+}
+
+.card,
+.journal-grid article {
+  padding: 26px;
+}
+
+.image-placeholder {
+  min-height: 190px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  border: 1px solid rgba(23, 32, 42, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(15, 94, 114, 0.16), rgba(122, 81, 48, 0.12)),
+    #f7f6f1;
+  color: #17202a;
+  font-weight: 800;
+  text-align: center;
+}
+
+.card .image-placeholder {
+  min-height: 150px;
+  margin-bottom: 24px;
+}
+
+.devops-placeholder {
+  background:
+    linear-gradient(135deg, rgba(15, 94, 114, 0.2), rgba(23, 32, 42, 0.08)),
+    #f7f6f1;
+}
+
+.renault-placeholder {
+  background:
+    linear-gradient(135deg, rgba(122, 81, 48, 0.2), rgba(247, 246, 241, 0.8)),
+    #ffffff;
+}
+
+.peugeot-placeholder {
+  background:
+    linear-gradient(135deg, rgba(23, 32, 42, 0.16), rgba(15, 94, 114, 0.1)),
+    #ffffff;
+}
+
+.machine-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card .image-placeholder {
+  min-height: 210px;
+  border: 0;
+  border-bottom: 1px solid rgba(23, 32, 42, 0.13);
+  border-radius: 0;
+}
+
+.project-content {
+  padding: 26px;
 }
 
 .timeline {
@@ -224,6 +292,38 @@ h3 {
   display: block;
   margin-bottom: 8px;
   font-size: 1.3rem;
+}
+
+.milestone-list {
+  display: grid;
+  gap: 14px;
+}
+
+.milestone-list div {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 20px;
+  border: 1px solid rgba(23, 32, 42, 0.13);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.milestone-list span {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #17202a;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.milestone-list p {
+  margin-bottom: 0;
 }
 
 .contact {
@@ -258,7 +358,9 @@ h3 {
   .hero,
   .split,
   .cards,
-  .journal-grid {
+  .journal-grid,
+  .project-grid,
+  .machine-gallery {
     grid-template-columns: 1fr;
   }
 
