@@ -3,72 +3,190 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>mini-release-platform</title>
-    <style>
-      :root {
-        color-scheme: light dark;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        line-height: 1.5;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: #f6f8fa;
-        color: #1f2328;
-      }
-
-      main {
-        width: min(680px, calc(100% - 32px));
-        padding: 40px;
-        border: 1px solid #d0d7de;
-        border-radius: 8px;
-        background: #ffffff;
-      }
-
-      h1 {
-        margin: 0 0 12px;
-        font-size: clamp(2rem, 4vw, 3rem);
-        line-height: 1.1;
-      }
-
-      p {
-        margin: 0 0 16px;
-        color: #57606a;
-      }
-
-      ul {
-        margin: 24px 0 0;
-        padding-left: 20px;
-      }
-
-      li {
-        margin-bottom: 8px;
-      }
-
-      code {
-        padding: 2px 6px;
-        border-radius: 6px;
-        background: #f6f8fa;
-      }
-    </style>
+    <meta
+      name="description"
+      content="Personal platform for Leandro Picot, SRE / DevOps / Release Engineer."
+    >
+    <title>Leandro Picot | Building Systems. Building Machines. Building Myself.</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main>
-      <h1>mini-release-platform</h1>
-      <p>
-        Static application served by Docker and Nginx, prepared for a simple
-        GitHub-to-AWS release platform.
-      </p>
-      <p>Deployed automatically with GitHub Actions 🚀</p>
-      <ul>
-        <li>Application: <code>app/</code></li>
-        <li>Infrastructure: <code>infra/</code></li>
-        <li>CI/CD validation: <code>.github/workflows/ci.yml</code></li>
-        <li>Operational docs: <code>docs/</code></li>
-      </ul>
+    <header class="site-header">
+      <a class="brand" href="#top">Leandro Picot</a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#devops-lab">DevOps Lab</a>
+        <a href="#machines">Machines</a>
+        <a href="#journal">Journal</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section">
+        <div class="hero-copy">
+          <p class="eyebrow">SRE / DevOps / Release Engineer</p>
+          <h1>Building Systems. Building Machines. Building Myself.</h1>
+          <p class="hero-text">
+            I am Leandro Picot, a release-minded engineer building practical
+            platforms, documenting the path, and connecting software discipline
+            with the patience of mechanical work.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#devops-lab">View DevOps Lab</a>
+            <a class="button secondary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="Platform focus">
+          <span>01 DevOps Lab</span>
+          <span>02 Machines</span>
+          <span>03 Journal</span>
+        </aside>
+      </section>
+
+      <section id="about" class="section split">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2>From railway operations to release engineering.</h2>
+        </div>
+        <div class="section-body">
+          <p>
+            My background includes work as a railway worker and train driver,
+            where reliability, timing, responsibility, and calm execution were
+            part of everyday life.
+          </p>
+          <p>
+            Today I apply that same mindset to software delivery: clear
+            processes, resilient systems, automation, rollback thinking, and
+            documentation that another person can actually follow.
+          </p>
+        </div>
+      </section>
+
+      <section id="devops-lab" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">DevOps Lab</p>
+          <h2>Small platforms that explain real workflows.</h2>
+          <p>
+            A space for hands-on infrastructure, CI/CD, release automation, and
+            operational documentation.
+          </p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <p class="card-kicker">Current project</p>
+            <h3>Mini Release Platform</h3>
+            <p>
+              A static site deployed through GitHub Actions to Terraform-managed
+              AWS S3 Static Website Hosting. It demonstrates Docker validation,
+              CI, CD, Infrastructure as Code, and release documentation.
+            </p>
+          </article>
+          <article class="card">
+            <p class="card-kicker">Focus</p>
+            <h3>Release discipline</h3>
+            <p>
+              Build, validate, deploy, observe, and rollback. The goal is not
+              complexity; it is making the delivery path visible and repeatable.
+            </p>
+          </article>
+          <article class="card">
+            <p class="card-kicker">Operating principle</p>
+            <h3>Simple before clever</h3>
+            <p>
+              Prefer clear workflows, small pieces, documented decisions, and
+              infrastructure that can be rebuilt from source.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="machines" class="section split">
+        <div>
+          <p class="eyebrow">Machines</p>
+          <h2>Mechanical work as another kind of systems thinking.</h2>
+        </div>
+        <div class="section-body">
+          <p>
+            Machines teach diagnosis, patience, sequencing, and respect for
+            cause and effect. Those lessons carry directly into engineering
+            production systems.
+          </p>
+          <div class="timeline">
+            <div>
+              <span>Travel memories</span>
+              <strong>Renault 4</strong>
+              <p>
+                A symbol of movement, simple mechanics, and memorable road
+                stories.
+              </p>
+            </div>
+            <div>
+              <span>Restoration project</span>
+              <strong>Peugeot 504</strong>
+              <p>
+                A long-term project about rebuilding carefully, learning by
+                doing, and respecting the original machine.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="journal" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Journal</p>
+          <h2>Learning in public, one system at a time.</h2>
+          <p>
+            Notes on release engineering, infrastructure, restoration, and the
+            personal process of becoming better at the work.
+          </p>
+        </div>
+        <div class="journal-grid">
+          <article>
+            <span>DevOps</span>
+            <h3>What a release pipeline should prove</h3>
+            <p>
+              A good pipeline does more than run commands. It builds trust in a
+              change before that change reaches users.
+            </p>
+          </article>
+          <article>
+            <span>Machines</span>
+            <h3>Restoration is debugging with metal</h3>
+            <p>
+              Start with symptoms, inspect the system, make one change at a
+              time, and verify the result.
+            </p>
+          </article>
+          <article>
+            <span>Personal</span>
+            <h3>Building myself</h3>
+            <p>
+              The work is technical, but the practice is also personal:
+              consistency, focus, and the humility to keep learning.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact">
+        <p class="eyebrow">Contact</p>
+        <h2>Open to SRE, DevOps, and Release Engineering conversations.</h2>
+        <p>
+          This platform is a living portfolio for practical engineering work,
+          mechanical projects, and personal learning.
+        </p>
+        <div class="contact-links">
+          <a href="https://github.com/LeandroPicot" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/leandropicot/" rel="noreferrer">LinkedIn</a>
+        </div>
+      </section>
     </main>
+
+    <footer class="footer">
+      <span>Leandro Picot</span>
+      <span>Building Systems. Building Machines. Building Myself.</span>
+    </footer>
   </body>
 </html>
