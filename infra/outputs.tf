@@ -1,10 +1,10 @@
 output "project_name" {
-  description = "Project name used by the Terraform scaffold."
+  description = "Project name used by Terraform resources."
   value       = var.project_name
 }
 
 output "environment" {
-  description = "Environment name used by the Terraform scaffold."
+  description = "Environment name used by Terraform resources."
   value       = var.environment
 }
 

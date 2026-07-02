@@ -2,7 +2,7 @@
 
 ## Goal
 
-This runbook verifies that a new contributor can run `mini-release-platform` locally and validate the CI checks without deploying anything.
+This runbook verifies that a new contributor can run `mini-release-platform` locally and validate the same checks used by CI.
 
 ## Prerequisites
 
@@ -184,7 +184,7 @@ If Terraform validation fails locally:
 - Confirm you are running the commands from the repository root.
 - Try the same validation in GitHub Actions if the local workstation behaves differently.
 
-## Sprint 1 And 2 Acceptance Criteria
+## Acceptance Criteria
 
 - Docker image builds successfully.
 - Container serves the static page locally.

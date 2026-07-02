@@ -78,6 +78,5 @@ resource "aws_s3_bucket_policy" "portfolio_policy" {
   ]
 }
 
-# MVP scaffold only: the AWS provider is configured, but no AWS resources are
-# created yet. Future iterations can add a free-tier-friendly deployment target
-# such as S3 static hosting or a small container service.
+# Current deployment target: S3 static website hosting. Future iterations can
+# add CloudFront, a custom domain, or an optional container runtime path.

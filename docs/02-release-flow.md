@@ -17,6 +17,7 @@ This project validates the app and infrastructure, then deploys static files to 
 7. GitHub Actions runs the deploy workflow on `main`.
 8. The deploy workflow validates the project again.
 9. If validation succeeds, `app/` is synced to the configured S3 website bucket.
+10. The S3 website endpoint serves the updated static files.
 
 ## CI Validation
 
@@ -39,7 +40,7 @@ The deployment workflow:
 3. Configures AWS credentials from GitHub Secrets.
 4. Runs `aws s3 sync app/ s3://$S3_BUCKET/ --delete --exclude "Dockerfile"`.
 5. Does not run `terraform apply`.
-6. Does not create AWS resources.
+6. Does not create or modify infrastructure resources.
 
 Required GitHub Secrets:
 
@@ -55,3 +56,4 @@ Required GitHub Secrets:
 - Rollback instructions should be known before deployment.
 - CI should fail fast on formatting and syntax issues.
 - Deployment permissions should be separate from validation permissions.
+- Static file deployment should be repeatable and idempotent.

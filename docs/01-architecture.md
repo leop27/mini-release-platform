@@ -2,19 +2,20 @@
 
 ## Purpose
 
-`mini-release-platform` demonstrates a simple release platform for a static web application.
+`mini-release-platform` demonstrates a simple release platform for a static web application hosted on AWS S3.
 
-The MVP focuses on clarity:
+This document complements the README with operational architecture details.
 
-- Source code is kept in GitHub.
-- The application is packaged with Docker.
-- Nginx serves static content.
+The platform focuses on clarity:
+
+- Source code is versioned in GitHub.
+- The application is packaged and validated with Docker.
+- Nginx serves static content during local and CI smoke tests.
 - GitHub Actions validates changes.
-- Terraform manages the S3 static website infrastructure in AWS.
+- Terraform manages S3 static website infrastructure.
 - GitHub Actions deploys static files to S3 after validation on `main`.
-- Operational documentation explains release and rollback decisions.
 
-## Current Components
+## Current Architecture
 
 ```text
 Developer
@@ -40,6 +41,9 @@ GitHub Actions deploy
    |
    v
 S3 static website hosting
+   |
+   v
+Public website endpoint
 
 Local runtime
    |
@@ -55,6 +59,8 @@ Static HTML application
 The application is a static HTML page in `app/index.html`.
 
 The Docker image uses `nginx:1.27-alpine` and copies the static file into the default Nginx web root.
+
+Docker is used for validation and local development. The deployed S3 website serves the static files directly from the bucket.
 
 ## Infrastructure
 
@@ -90,7 +96,6 @@ The project should avoid:
 
 Good candidates for future iterations:
 
-- S3 static website hosting
 - CloudFront with careful cost awareness
 - ECR only if container deployment is required
 - A small ECS/Fargate example only with explicit cost notes
@@ -100,7 +105,7 @@ Good candidates for future iterations:
 Future improvements can add:
 
 - Remote Terraform state
-- Manual deployment workflow
+- Manual approval gates for deployment
 - Versioned Docker image tags
 - Smoke checks
 - Environment separation

@@ -14,7 +14,7 @@ Preferred path:
 2. Revert the faulty change in Git.
 3. Run CI validation.
 4. Merge or rerun the previous known-good version through the deployment workflow.
-5. Run smoke checks.
+5. Confirm the S3 website endpoint serves the expected content.
 
 For a static site, rollback should be fast because the artifact is small and has no database migration dependency.
 
@@ -42,7 +42,7 @@ Avoid manual cloud-console changes unless production impact requires immediate i
 ## Future Improvements
 
 - Release tags
-- Immutable Docker image tags
+- S3 object versioning
 - Deployment history
 - Automated smoke checks
 - Documented recovery time objective

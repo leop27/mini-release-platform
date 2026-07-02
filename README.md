@@ -1,37 +1,100 @@
 # mini-release-platform
 
-`mini-release-platform` is a small DevOps/SRE portfolio project that models a safe release path from source code to AWS-ready infrastructure.
+`mini-release-platform` is a DevOps/SRE portfolio project that demonstrates a small but complete release path from GitHub to AWS.
 
-The MVP is intentionally simple: a static application served with Docker + Nginx, validated by GitHub Actions, and prepared for future AWS deployment through Terraform. It does not create cloud resources or deploy anything yet.
+It packages a static web application with Docker, validates changes with GitHub Actions, provisions AWS S3 Static Website Hosting with Terraform, and deploys site updates automatically with `aws s3 sync`.
 
-## Problem This MVP Represents
+Live site:
 
-Many teams need a reliable way to move changes from GitHub to production without making the release process fragile, opaque, or dependent on manual steps.
+```text
+http://mini-release-platform-dev-32ffc51b.s3-website-us-east-1.amazonaws.com
+```
 
-This project represents that problem in a compact form:
+## Project Status
 
-- A small web application needs to be packaged consistently.
-- Infrastructure must be described as code before it is created.
-- Pull requests should validate application and infrastructure changes.
-- Release and rollback behavior should be documented before production deployment exists.
-- The platform should stay understandable enough for another engineer to operate.
+- Docker image builds successfully.
+- Local container smoke test is documented.
+- GitHub Actions CI validates structure, Docker, smoke test, and Terraform.
+- Terraform provisions the S3 static website infrastructure.
+- S3 website hosting is enabled.
+- Public read access is configured for website objects.
+- GitHub Actions deploys static files to S3 on push to `main`.
+- GitHub Secrets are used for AWS credentials and deployment configuration.
 
-The goal is not to build a complex platform. The goal is to show the foundation of a professional release workflow that can grow safely.
+## Architecture Overview
 
-## DevOps / SRE Capabilities Demonstrated
+This project represents a common release engineering problem: moving a small application from source control to a cloud-hosted environment in a way that is repeatable, reviewable, and easy to troubleshoot.
 
-This MVP demonstrates:
+The goal is not platform complexity. The goal is to show the core mechanics of a professional delivery workflow:
 
-- Containerization with Docker and Nginx
-- Basic CI validation with GitHub Actions
-- Infrastructure as Code structure with Terraform
-- Terraform formatting and validation without applying changes
-- AWS-oriented project layout with free-tier constraints in mind
-- Operational documentation for architecture, release flow, and rollback
-- Separation between validation and deployment responsibilities
-- A release mindset based on review, reproducibility, and rollback readiness
+- Source code is versioned in GitHub.
+- Application packaging is validated with Docker.
+- CI runs repeatable checks before deployment.
+- Infrastructure is managed with Terraform.
+- Static site hosting is provided by AWS S3.
+- Deployment is automated through GitHub Actions.
+- Operational documentation explains validation, release, and rollback.
 
-It is designed for an SRE Release / DevOps portfolio: small enough to review quickly, but structured like a real platform seed.
+Current architecture:
+
+```text
+Developer
+   |
+   v
+Git commit / git push
+   |
+   v
+GitHub repository
+   |
+   +-----------------------+
+   |                       |
+   v                       v
+CI workflow            Deploy workflow
+   |                       |
+   |                       +--> Configure AWS credentials from GitHub Secrets
+   |                       +--> aws s3 sync app/ s3://S3_BUCKET/
+   |                       |
+   v                       v
+Docker build          AWS S3 Static Website Hosting
+Docker run                  |
+Smoke test                  v
+Terraform validation   Public website endpoint
+```
+
+Infrastructure ownership:
+
+```text
+Terraform
+   |
+   +--> S3 bucket
+   +--> S3 website configuration
+   +--> Public access block settings
+   +--> Bucket policy for public read access
+   +--> Website endpoint output
+```
+
+Runtime validation:
+
+```text
+Docker image
+   |
+   v
+Docker container
+   |
+   v
+Nginx serving app/index.html
+   |
+   v
+curl smoke test
+```
+
+## Components
+
+- GitHub: source control and pull request workflow.
+- GitHub Actions: CI validation and deployment automation.
+- Docker: local packaging and runtime validation with Nginx.
+- Terraform: Infrastructure as Code for AWS resources.
+- AWS S3: static website hosting target.
 
 ## Repository Structure
 
@@ -53,142 +116,84 @@ It is designed for an SRE Release / DevOps portfolio: small enough to review qui
 |   `-- workflows/
 |       |-- ci.yml
 |       `-- deploy.yml
+|-- .dockerignore
 |-- .gitignore
 `-- README.md
 ```
 
-## What Is Included
+## CI/CD Flow
 
-- `app/`: static HTML application and Docker image definition
-- `infra/`: Terraform scaffold for future AWS resources
-- `.github/workflows/ci.yml`: CI workflow for validation
-- `docs/`: operational documentation
-
-## What Is Not Included Yet
-
-- No Kubernetes
-- No managed database
-- No NAT Gateway or expensive always-on infrastructure
-- No runtime secrets or AWS credentials required for CI validation
-
-## Run Locally
-
-Prerequisites:
-
-- Docker
-
-Check Docker is available:
-
-```bash
-docker --version
-```
-
-Build the application image:
-
-```bash
-docker build -t mini-release-platform ./app
-```
-
-Run the container:
-
-```bash
-docker run --rm -p 8080:80 mini-release-platform
-```
-
-Open the application:
+The current flow is:
 
 ```text
-http://localhost:8080
+Developer
+   |
+   v
+Commit
+   |
+   v
+Push to main
+   |
+   v
+GitHub Actions
+   |
+   v
+Build and validation
+   |
+   v
+AWS S3 sync
+   |
+   v
+Website updated
 ```
 
-Stop the container with `Ctrl+C` if it is running in the foreground.
+Step by step:
 
-To run the same check in the background:
+1. A developer commits a change.
+2. The change is pushed to GitHub.
+3. GitHub Actions starts the CI and deploy workflows.
+4. CI validates repository structure, Docker build, container startup, smoke test, Terraform formatting, and Terraform syntax.
+5. The deploy workflow repeats validation before publishing.
+6. AWS credentials and deployment settings are loaded from GitHub Secrets.
+7. `aws s3 sync` uploads static files from `app/` to the S3 website bucket.
+8. The public S3 website endpoint serves the updated content.
 
-```bash
-docker run --rm -d --name mini-release-platform -p 8080:80 mini-release-platform
-curl --fail http://localhost:8080
-docker stop mini-release-platform
+The CI workflow does not use AWS credentials and does not deploy. The deploy workflow runs only on push to `main`.
+
+## Infrastructure
+
+AWS region:
+
+```text
+us-east-1
 ```
 
-Expected result:
+S3 website endpoint:
 
-- The browser shows the `mini-release-platform` page.
-- `curl` returns the static HTML.
-- The container stops cleanly.
-
-If port `8080` is already in use, map another local port:
-
-```bash
-docker run --rm -p 8081:80 mini-release-platform
+```text
+http://mini-release-platform-dev-32ffc51b.s3-website-us-east-1.amazonaws.com
 ```
 
-Then open `http://localhost:8081`.
+Terraform lives in `infra/` and manages:
 
-## Validate Terraform Without Applying Changes
+- `random_id.bucket_suffix`: generates a stable suffix for the bucket name.
+- `aws_s3_bucket.portfolio_bucket`: creates the S3 bucket.
+- `aws_s3_bucket_website_configuration.portfolio_website`: enables static website hosting.
+- `aws_s3_bucket_public_access_block.portfolio_public_access`: allows the public website policy to work.
+- `aws_s3_bucket_policy.portfolio_policy`: grants public `s3:GetObject` access to website objects.
 
-Prerequisites:
+Terraform outputs:
 
-- Terraform
+- `project_name`
+- `environment`
+- `aws_region`
+- `website_endpoint`
 
-Check Terraform is available:
+Infrastructure changes are applied manually from a controlled environment. CI and deploy workflows do not run `terraform apply`.
 
-```bash
-terraform version
-```
+## GitHub Secrets
 
-The Terraform scaffold is safe to validate locally because it does not define AWS resources yet. These commands initialize Terraform and validate syntax only.
-
-Check formatting:
-
-```bash
-terraform fmt -check -recursive infra
-```
-
-Initialize Terraform without configuring or using a backend:
-
-```bash
-terraform -chdir=infra init -backend=false
-```
-
-Validate Terraform syntax:
-
-```bash
-terraform -chdir=infra validate
-```
-
-Important: do not run `terraform apply` as part of CI or deploy. Infrastructure changes should be reviewed and applied manually from a controlled environment.
-
-## CI Validation
-
-GitHub Actions runs the same checks expected from a pull request:
-
-- Check the expected repository structure exists
-- Build the Docker image
-- Run the container on `localhost:8080`
-- Wait for Nginx readiness and smoke test the application with `curl --fail`
-- Print `docker ps -a` and `docker logs` if the smoke test fails
-- Clean up the container even if the smoke test fails
-- Check Terraform formatting
-- Initialize Terraform without a backend
-- Validate Terraform syntax
-
-The CI workflow is intentionally validation-only. It does not use secrets, does not require AWS credentials, does not run `terraform apply`, and does not deploy to AWS.
-
-For a step-by-step local and CI validation runbook, see [docs/04-local-validation.md](docs/04-local-validation.md).
-
-## S3 Deployment
-
-The deployment workflow lives in `.github/workflows/deploy.yml`.
-
-It runs only on `push` to `main` and uses two jobs:
-
-- `validate`: repeats the build, Docker smoke test, and Terraform validation checks.
-- `deploy`: syncs the static application files from `app/` to the existing S3 website bucket.
-
-The deploy job runs only if validation succeeds.
-
-Configure these GitHub repository secrets before enabling deployment:
+The deploy workflow requires these repository secrets:
 
 ```text
 AWS_ACCESS_KEY_ID
@@ -197,16 +202,16 @@ AWS_REGION
 S3_BUCKET
 ```
 
-For the current dev environment:
+Current dev values:
 
 ```text
 AWS_REGION=us-east-1
 S3_BUCKET=mini-release-platform-dev-32ffc51b
 ```
 
-Use an IAM user or role scoped to this bucket instead of broad administrator credentials. The deployment needs permissions to list the bucket and put/delete objects under it.
+Use credentials scoped to the deployment bucket instead of broad administrator credentials.
 
-Example least-privilege policy for this bucket:
+Example least-privilege IAM policy:
 
 ```json
 {
@@ -229,7 +234,7 @@ Example least-privilege policy for this bucket:
 }
 ```
 
-The workflow deploys with:
+Deployment command used by the workflow:
 
 ```bash
 aws s3 sync app/ "s3://${S3_BUCKET}/" --delete --exclude "Dockerfile"
@@ -237,120 +242,79 @@ aws s3 sync app/ "s3://${S3_BUCKET}/" --delete --exclude "Dockerfile"
 
 `Dockerfile` is excluded because the S3 website bucket should contain static site files, not container build metadata.
 
-The deployment workflow does not run `terraform apply`, does not create AWS resources, and does not hardcode credentials.
+## Local Development
 
-## Architecture
+Prerequisites:
 
-The current architecture is local and CI-focused:
+- Docker
+- Terraform
 
-```text
-Developer
-   |
-   v
-GitHub repository
-   |
-   v
-GitHub Actions CI
-   |
-   +--> Docker build validation
-   +--> Terraform format validation
-   +--> Terraform syntax validation
+Build the Docker image:
 
-Local runtime
-   |
-   v
-Docker container running Nginx
-   |
-   v
-Static HTML application
+```bash
+docker build -t mini-release-platform ./app
 ```
 
-See [docs/01-architecture.md](docs/01-architecture.md) for more detail.
+Run the container:
 
-## Release Flow
+```bash
+docker run --rm -p 8080:80 mini-release-platform
+```
 
-The current release flow is:
+Open:
 
-1. Create a branch.
-2. Change application, infrastructure, or documentation files.
-3. Open a pull request.
-4. Run CI validation.
-5. Review the change.
-6. Merge to `main` when checks pass.
-7. On push to `main`, the deploy workflow validates the project again.
-8. If validation succeeds, GitHub Actions syncs `app/` to the configured S3 bucket.
+```text
+http://localhost:8080
+```
 
-See [docs/02-release-flow.md](docs/02-release-flow.md).
+Validate Terraform:
 
-## Rollback
+```bash
+terraform fmt -check -recursive infra
+terraform -chdir=infra init -backend=false
+terraform -chdir=infra validate
+```
 
-Rollback is documented before deployment is automated.
+See [docs/04-local-validation.md](docs/04-local-validation.md) for the full local validation runbook.
 
-The initial rollback model is:
+## Operational Documentation
 
-- Revert the faulty Git change.
-- Rebuild the previous known-good application artifact.
-- Redeploy the previous known-good version once deployment exists.
-- For infrastructure changes, revert the Terraform change and review the rollback plan before applying.
+- [Architecture](docs/01-architecture.md)
+- [Release Flow](docs/02-release-flow.md)
+- [Rollback](docs/03-rollback.md)
+- [Local Validation](docs/04-local-validation.md)
 
-See [docs/03-rollback.md](docs/03-rollback.md).
+## Lessons Learned
 
-## AWS Free Tier Guardrails
+- Docker image vs container: the image is the packaged artifact; the container is the running process that must be tested.
+- Service readiness matters: `docker run -d` does not guarantee Nginx is ready, so CI needs an HTTP readiness loop before the smoke test.
+- GitHub Actions troubleshooting improves reliability: `docker ps -a` and `docker logs` make failures easier to diagnose.
+- Terraform providers are part of the runtime contract: provider versions and `.terraform.lock.hcl` help make validation reproducible.
+- Terraform state matters: local state works for a learning project, but shared environments need remote state and locking.
+- Idempotency is central: Terraform manages infrastructure repeatedly, and `aws s3 sync` makes static file deployment repeatable.
+- AWS IAM should be scoped: deployment credentials should only access the target bucket and required object operations.
+- Bucket policies and public access block settings must work together for S3 website hosting.
+- Static website hosting is a simple, low-cost deployment target for frontend/static content.
+- Infrastructure as Code makes the platform reviewable, auditable, and easier to rebuild.
 
-This project is designed to stay compatible with AWS free tier and low-cost learning environments.
+## Future Improvements
 
-Avoid by default:
+- Least Privilege IAM: replace broad deployment credentials with a tightly scoped IAM policy or GitHub OIDC role.
+- Terraform Remote State: move state to a remote backend with locking for safer collaboration.
+- CloudFront: add CDN caching, HTTPS, and better edge delivery.
+- Custom Domain: map a domain name to the static website through DNS and certificate management.
+- ECS/Fargate: add an optional container deployment path for workloads that need runtime compute.
+- Observability: add deployment metadata, health checks, and basic operational dashboards.
+- Monitoring: add uptime checks and alerting for the public endpoint.
+
+## Cost And Scope Notes
+
+This project intentionally avoids:
 
 - Kubernetes
-- NAT Gateway
 - Managed databases
-- Large EC2 instances
-- Always-on infrastructure without explicit cost notes
-- Automated deploys without manual approval
+- NAT Gateway
+- Large compute instances
+- Always-on infrastructure outside the S3 static website path
 
-## Roadmap
-
-Planned next iterations:
-
-1. S3 static hosting
-   - Add Terraform resources for an S3 bucket configured for static website hosting.
-   - Keep the deployment target low-cost and easy to reason about.
-
-2. EC2 container deployment
-   - Add an optional free-tier-friendly EC2 path for running the Dockerized Nginx app.
-   - Document SSH, security group, and instance lifecycle considerations.
-
-3. ALB routing
-   - Add an Application Load Balancer option for a more production-like traffic entry point.
-   - Include explicit cost warnings because ALB is not always free-tier friendly.
-
-4. GitHub Actions deploy workflow
-   - Add a manual `workflow_dispatch` deployment pipeline.
-   - Separate validation from deployment.
-   - Use GitHub environments and approvals for controlled releases.
-
-5. Documented rollback execution
-   - Add concrete rollback runbooks per deployment target.
-   - Include previous-version redeploy steps, Terraform rollback steps, and smoke checks.
-
-6. Release observability basics
-   - Add health checks or smoke tests after deployment.
-   - Document expected service behavior and basic troubleshooting.
-
-## Current Status
-
-The project is in scaffold stage:
-
-- Application: ready for local Docker build
-- CI: validation workflow defined
-- Terraform: S3 static website infrastructure created for the dev environment
-- Docs: architecture, release flow, and rollback notes included
-- Sprint 1: local run and validation process documented
-- Sprint 2: GitHub Actions CI validates structure, Docker, smoke test, and Terraform
-- Sprint 5: GitHub Actions deploy syncs static files to S3 on push to `main`
-
-Current website endpoint:
-
-```text
-http://mini-release-platform-dev-32ffc51b.s3-website-us-east-1.amazonaws.com
-```
+The current implementation is designed to stay simple, understandable, and appropriate for a DevOps/SRE portfolio.
