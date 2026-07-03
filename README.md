@@ -1,5 +1,5 @@
 # mini-release-platform
-
+Branch protection test.
 `mini-release-platform` is a DevOps/SRE portfolio project that demonstrates a small but complete release path from GitHub to AWS.
 
 It packages a static web application with Docker, validates changes with GitHub Actions, provisions AWS S3 Static Website Hosting with Terraform, and deploys site updates automatically with `aws s3 sync`.
