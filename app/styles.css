@@ -288,6 +288,17 @@ h3 {
   flex-direction: column;
 }
 
+.project-link {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.project-link:focus-visible {
+  outline: 3px solid #0f5e72;
+  outline-offset: 4px;
+}
+
 .project-card .image-placeholder {
   min-height: 210px;
   border: 0;
@@ -309,6 +320,34 @@ h3 {
   color: #0f5e72;
   font-size: 0.9rem;
   font-weight: 800;
+}
+
+.project-hero {
+  padding-top: 110px;
+  border-bottom: 1px solid rgba(23, 32, 42, 0.1);
+}
+
+.project-detail {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.project-detail article {
+  padding: 26px;
+  border: 1px solid rgba(23, 32, 42, 0.13);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.project-detail ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #4f5b62;
+}
+
+.project-detail li {
+  margin-bottom: 10px;
 }
 
 .timeline {
@@ -406,6 +445,7 @@ h3 {
   .cards,
   .journal-grid,
   .project-grid,
+  .project-detail,
   .machine-gallery {
     grid-template-columns: 1fr;
   }
