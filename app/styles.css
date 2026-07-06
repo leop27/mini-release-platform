@@ -68,7 +68,9 @@ p {
 }
 
 .nav a:hover,
-.contact-links a:hover {
+.contact-links a:hover,
+.social-bar a:hover,
+.footer-links a:hover {
   color: #0f5e72;
 }
 
@@ -139,6 +141,30 @@ h3 {
   max-width: 650px;
   margin-bottom: 30px;
   font-size: clamp(1.05rem, 2vw, 1.3rem);
+}
+
+.social-bar,
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.social-bar {
+  margin: 0 0 24px;
+}
+
+.social-bar a,
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(23, 32, 42, 0.16);
+  border-radius: 6px;
+  color: #4f5b62;
+  font-size: 0.88rem;
+  font-weight: 800;
 }
 
 .hero-actions,
@@ -457,6 +483,7 @@ h3 {
 .footer {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
   padding: 28px clamp(20px, 5vw, 72px);
@@ -500,12 +527,16 @@ h3 {
   }
 
   .hero-actions,
-  .contact-links {
+  .contact-links,
+  .social-bar,
+  .footer-links {
     flex-direction: column;
   }
 
   .button,
-  .contact-links a {
+  .contact-links a,
+  .social-bar a,
+  .footer-links a {
     width: 100%;
   }
 }
