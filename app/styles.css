@@ -60,6 +60,7 @@ p {
 .nav {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: flex-end;
   gap: 14px;
   color: #4f5b62;
@@ -69,6 +70,27 @@ p {
 .nav a:hover,
 .contact-links a:hover {
   color: #0f5e72;
+}
+
+.language-switcher {
+  display: inline-flex;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid rgba(23, 32, 42, 0.14);
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.language-switcher a {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.language-switcher a[aria-current="page"] {
+  background: #17202a;
+  color: #ffffff;
 }
 
 .section {
@@ -191,6 +213,14 @@ h3 {
 
 .section-actions {
   margin-top: 24px;
+}
+
+.placeholder-note {
+  max-width: 760px;
+  padding: 26px;
+  border: 1px solid rgba(23, 32, 42, 0.13);
+  border-radius: 8px;
+  background: #ffffff;
 }
 
 .cards,
