@@ -1,0 +1,160 @@
+/* ═══════════════════════════════════════════
+   MOTION — micro-interaction layer on top of
+   base.css (never edits it, only enriches):
+   1. loader column wipe + mono counter
+   2. circular theme wipe (View Transitions)
+   3. curated .button hover system
+   Palette: violet #7c3aed / #a78bfa only here.
+   ═══════════════════════════════════════════ */
+
+/* ── 1. LOADER — five violet columns rise in from the
+   bottom (70ms stagger), hold, then exit upward at
+   ~1.75s with the stagger reversed. They sit between
+   the radial backdrop (base.css) and .loader-inner. ── */
+.loader-cols {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  overflow: hidden;
+  pointer-events: none;
+}
+.loader-cols i {
+  display: block;
+  width: 20vw;
+  height: 100%;
+  transform: translateY(100%);
+  animation:
+    loaderColIn 0.6s var(--ease-out) forwards,
+    loaderColOut 0.55s var(--ease-out) forwards;
+  will-change: transform;
+}
+@keyframes loaderColIn {
+  to { transform: translateY(0); }
+}
+@keyframes loaderColOut {
+  to { transform: translateY(-101%); }
+}
+/* first delay = entry (1 → 5), second = exit (5 → 1, inverse) */
+.loader-cols i:nth-child(1) {
+  animation-delay: 0s, 2.03s;
+  background: linear-gradient(180deg, #8b5cf6, #4c1d95);
+}
+.loader-cols i:nth-child(2) {
+  animation-delay: 0.07s, 1.96s;
+  background: linear-gradient(180deg, #9161f7, #521f9d);
+}
+.loader-cols i:nth-child(3) {
+  animation-delay: 0.14s, 1.89s;
+  background: linear-gradient(180deg, #8654f0, #47188e);
+}
+.loader-cols i:nth-child(4) {
+  animation-delay: 0.21s, 1.82s;
+  background: linear-gradient(180deg, #8e5ef5, #4f1d99);
+}
+.loader-cols i:nth-child(5) {
+  animation-delay: 0.28s, 1.75s;
+  background: linear-gradient(180deg, #8257ee, #451a89);
+}
+
+/* content always above the columns */
+.loader-screen .loader-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* mono counter driven by intro.js (0% → 100%) */
+.loader-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── 2. THEME WIPE — circular View Transition growing
+   out of the .theme-toggle (theme.js sets --wipe-x/-y). ── */
+::view-transition-old(root) {
+  animation: none;
+}
+::view-transition-new(root) {
+  animation: themeWipe 0.55s var(--ease-out);
+  clip-path: circle(0 at var(--wipe-x, 90%) var(--wipe-y, 40px));
+}
+@keyframes themeWipe {
+  to { clip-path: circle(150vmax at var(--wipe-x, 90%) var(--wipe-y, 40px)); }
+}
+
+/* ── 3. BUTTONS — fill sweep + lift + focus ring.
+   Doubled selectors out-rank base.css regardless of
+   stylesheet order; the ::after sweep paints behind the
+   anchor's text (z-index: -1 inside the local context). ── */
+.button.button {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  transition:
+    border-color 0.3s var(--ease-out),
+    background 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+}
+.button.button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  /* secondary: subtle violet-tinted fill sweep */
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg-2));
+  transform: translateX(-101%);
+  transition: transform 0.3s var(--ease-out);
+  pointer-events: none;
+}
+.button--primary.button--primary::after {
+  background: linear-gradient(100deg, var(--accent), var(--accent-soft));
+}
+.button.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -12px rgba(124, 58, 237, 0.45);
+}
+.button.button:hover::after {
+  transform: translateX(0);
+}
+.button--primary.button--primary:hover {
+  color: #ffffff;
+}
+.button.button:active {
+  transform: translateY(0);
+}
+.button.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── reduced motion — static loader, no wipe, no sweeps ── */
+@media (prefers-reduced-motion: reduce) {
+  .loader-cols {
+    display: none;
+  }
+  .loader-cols i {
+    animation: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  .button.button,
+  .button.button::after {
+    transition: none;
+  }
+  .button.button::after {
+    display: none;
+  }
+  .button.button:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

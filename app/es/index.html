@@ -9,6 +9,73 @@
     >
     <title>Leandro Picot | Portfolio ES</title>
     <link rel="stylesheet" href="../styles.css">
+    <style>
+      /* Hustles preview badge — self-contained, isolated from styles.css */
+      @keyframes hustlesArrive {
+        from { opacity: 0; transform: translateY(-6px) scale(0.9); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes hustlesShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+      .hustles-badge.hustles-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: 6px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        color: #ffffff;
+        background: linear-gradient(120deg, #7c3aed, #dc2626, #7c3aed);
+        background-size: 200% 200%;
+        animation:
+          hustlesArrive 0.6s cubic-bezier(0.16, 1, 0.3, 1) both,
+          hustlesShift 5s ease-in-out infinite;
+        animation-delay: 0.4s, 1s;
+        box-shadow: 0 4px 18px rgba(124, 58, 237, 0.35);
+        transition: background-color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      }
+      .hustles-badge__label {
+        transition: color 0.3s ease;
+      }
+      .hustles-badge.hustles-badge:hover,
+      .hustles-badge.hustles-badge:focus-visible {
+        background: #0b0b0e;
+        animation:
+          hustlesArrive 0.6s cubic-bezier(0.16, 1, 0.3, 1) both,
+          hustlesShift 1.6s ease-in-out infinite;
+        transform: translateY(-3px) scale(1.07) rotate(-1deg);
+        box-shadow: 0 12px 32px -6px rgba(220, 38, 38, 0.55), 0 0 0 1px rgba(124, 58, 237, 0.5);
+      }
+      .hustles-badge:hover .hustles-badge__label,
+      .hustles-badge:focus-visible .hustles-badge__label {
+        background: linear-gradient(120deg, #a78bfa, #f87171, #a78bfa);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: hustlesShift 1.6s ease-in-out infinite;
+      }
+      .hustles-badge svg {
+        width: 12px;
+        height: 12px;
+        flex: none;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
+      }
+      .hustles-badge:hover svg,
+      .hustles-badge:focus-visible svg {
+        color: #f87171;
+        transform: translate(2px, -2px) rotate(8deg);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hustles-badge.hustles-badge,
+        .hustles-badge.hustles-badge:hover { animation: none; }
+      }
+    </style>
   </head>
   <body>
     <header class="site-header">
@@ -24,6 +91,10 @@
           <a href="../en/index.html" hreflang="en" lang="en">EN</a>
           <a href="../pt/index.html" hreflang="pt" lang="pt">PT</a>
         </span>
+        <a class="hustles-badge" href="../hustles/index.html" target="_blank" rel="noopener" aria-label="Preview: Hustles, an experimental frontend redesign">
+          <span class="hustles-badge__label">HUSTLES</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
       </nav>
     </header>
 

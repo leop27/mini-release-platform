@@ -1,0 +1,255 @@
+/* ═══════════════════════════════════════════
+   OVERLAY — book detail modal with the literal
+   "book opens" animation on the left pane.
+   ═══════════════════════════════════════════ */
+
+.book-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  visibility: hidden;
+  pointer-events: none;
+}
+.book-overlay.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.bo-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 8, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.book-overlay.is-open .bo-backdrop {
+  opacity: 1;
+}
+
+.bo-sheet {
+  position: relative;
+  width: min(980px, 100%);
+  max-height: min(86svh, 780px);
+  overflow-y: auto;
+  border-radius: var(--radius-l);
+  border: 1px solid var(--line);
+  background: var(--bg-0);
+  box-shadow: var(--shadow-lift);
+  padding: clamp(26px, 4vw, 56px);
+  transform: translateY(46px) scale(0.98);
+  opacity: 0;
+  filter: blur(12px);
+  transition: transform 0.45s var(--ease-spring), opacity 0.35s ease, filter 0.4s ease;
+}
+.book-overlay.is-open .bo-sheet {
+  transform: none;
+  opacity: 1;
+  filter: blur(0);
+}
+
+.bo-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-1);
+  color: var(--ink-1);
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s var(--ease-out);
+  z-index: 2;
+}
+.bo-close .icon { width: 15px; height: 15px; }
+/* the cross draws itself as the modal opens */
+.bo-close .icon path {
+  stroke-dasharray: 44;
+  stroke-dashoffset: 44;
+  transition: stroke-dashoffset 0.5s var(--ease-out) 0.25s;
+}
+.book-overlay.is-open .bo-close .icon path { stroke-dashoffset: 0; }
+.bo-close:hover {
+  border-color: color-mix(in srgb, var(--accent-2) 55%, var(--line));
+  color: var(--accent-2);
+  transform: rotate(90deg);
+}
+
+.bo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(26px, 4vw, 56px);
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .bo-grid { grid-template-columns: 1fr; }
+}
+
+/* ── the opening book ── */
+.bm-stage {
+  perspective: 1600px;
+  display: grid;
+  place-items: center;
+  padding: 20px 0;
+}
+.bm-book {
+  position: relative;
+  width: min(240px, 60vw);
+  aspect-ratio: 5 / 7;
+  transform-style: preserve-3d;
+}
+.bm-page {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px 12px 12px 6px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.14), transparent 12%),
+    repeating-linear-gradient(180deg, #f4efe4 0 28px, #ece6d8 28px 29px);
+  border: 1px solid #d8d2c4;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+}
+.bm-page-text {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #4a4438;
+  text-align: center;
+  margin: 0;
+}
+.bm-cover {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  border-radius: 6px 12px 12px 6px;
+  box-shadow: 8px 12px 34px rgba(0, 0, 0, 0.4);
+}
+.bm-cover-art {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  background: radial-gradient(120% 120% at 30% 20%, var(--art-tint-soft), var(--art-tint) 70%);
+}
+.bm-cover-art[data-tint='violet'] { --art-tint: #2a1a52; --art-tint-soft: #4c2f8f; }
+.bm-cover-art[data-tint='crimson'] { --art-tint: #3a1414; --art-tint-soft: #7a2020; }
+.bm-cover-art[data-tint='plum'] { --art-tint: #2d1436; --art-tint-soft: #6b2a7a; }
+.bm-cover-art[data-tint='graphite'] { --art-tint: #17171d; --art-tint-soft: #3c3c49; }
+.bm-cover-glyph {
+  color: rgba(255, 255, 255, 0.92);
+  filter: drop-shadow(0 0 26px rgba(255, 255, 255, 0.28));
+}
+.bm-cover-glyph .icon { width: clamp(52px, 11vw, 78px); height: clamp(52px, 11vw, 78px); stroke-width: 2.2; }
+.bm-cover-back {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #23232b, #101014);
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+.bm-cover.is-opening {
+  animation: bookOpen 1s 0.18s var(--ease-spring) forwards;
+}
+@keyframes bookOpen {
+  to { transform: rotateY(-148deg); }
+}
+
+/* ── copy pane ── */
+.bo-kicker {
+  color: var(--accent);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  margin-bottom: 14px;
+}
+.bo-title {
+  margin-bottom: 6px;
+}
+.bo-author {
+  color: var(--ink-2);
+  font-size: 0.78rem;
+  margin-bottom: 18px;
+}
+.bo-oneliner {
+  font-size: 1.25rem;
+  color: var(--ink-0);
+  margin-bottom: 22px;
+}
+.bo-copy .hairline {
+  margin-bottom: 22px;
+}
+.bo-why-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--ink-2);
+  margin-bottom: 10px;
+}
+.bo-why {
+  color: var(--ink-1);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* status + stack chips + repo link */
+.bo-status-line {
+  color: var(--accent);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+.bo-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 22px;
+}
+.bo-stack span {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.05em;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.bo-repo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-0);
+  transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s var(--ease-out);
+}
+.bo-repo .icon { width: 14px; height: 14px; }
+.bo-repo:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); color: var(--accent); transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bo-sheet {
+    transition: opacity 0.2s ease;
+    transform: none;
+  }
+  .bm-cover.is-opening {
+    animation: none;
+    transform: rotateY(-148deg);
+  }
+}

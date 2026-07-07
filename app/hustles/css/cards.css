@@ -1,0 +1,352 @@
+/* ═══════════════════════════════════════════
+   CARDS — the holographic trading cards and the
+   collector's shelf. Layer stack per card:
+   frame (rarity ring) → art → foil → glare →
+   plate → seal → rarity stars.
+   Pointer vars sprung by holo-tilt.js:
+   --hx/--hy (−1..1), --mx/--my (%), --hyp (0..1).
+   ═══════════════════════════════════════════ */
+
+/* desktop shelf = a real horizontal drag track: pointer drag,
+   wheel and snap — cards scaled up so the shelf always has travel */
+.bookshelf {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: clamp(26px, 3vw, 44px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  padding: 30px max(calc((100vw - var(--maxw)) / 2), 32px) 46px;
+  padding-right: 26vw; /* guaranteed travel past the last card */
+  cursor: grab;
+}
+.bookshelf::-webkit-scrollbar { display: none; }
+.bookshelf .holo-card {
+  flex: none;
+  scroll-snap-align: center;
+}
+
+.holo-card {
+  --hx: 0;
+  --hy: 0;
+  --hyp: 0;
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  aspect-ratio: 5 / 7;
+  width: 170px;
+  border-radius: 14px;
+  cursor: pointer;
+  contain: layout;
+  outline: none;
+}
+.holo-card { width: 240px; }
+.holo-card[data-rarity='epic'] { width: 285px; }
+.holo-card[data-rarity='legendary'] { width: 345px; }
+
+/* organic scatter — individual props compose with the child tilt */
+.holo-card:nth-child(4n + 1) { rotate: -2.4deg; translate: 0 8px; }
+.holo-card:nth-child(4n + 2) { rotate: 1.6deg; translate: 0 -6px; }
+.holo-card:nth-child(4n + 3) { rotate: -1.1deg; }
+.holo-card:nth-child(4n)     { rotate: 2.2deg; translate: 0 10px; }
+
+/* floor shadow — sells "standing on display" */
+.holo-card::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -20px;
+  height: 16px;
+  background: radial-gradient(50% 100% at 50% 0, rgba(0, 0, 0, 0.45), transparent 70%);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.holo-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+
+.hc-tilt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: #101014;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: box-shadow 0.35s ease;
+}
+.holo-card.is-live .hc-tilt {
+  box-shadow: var(--shadow-lift);
+}
+
+/* opening anticipation — the cover cracks open before the modal */
+.holo-card.is-opening .hc-tilt {
+  transform: perspective(1200px) rotateY(-26deg) translateZ(0) scale(1.05) !important;
+  transition: transform 0.28s var(--ease-spring);
+}
+.holo-card.is-opening .hc-foil { opacity: 1 !important; }
+
+/* ── layers ── */
+.hc-art {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.hc-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate3d(calc(var(--hx) * -6px), calc(var(--hy) * -6px), 0) scale(1.09);
+}
+
+/* glyph panel — used by Work & Projects cards instead of a cover photo */
+.hc-art--glyph {
+  display: grid;
+  place-items: center;
+  background: radial-gradient(120% 120% at 30% 20%, var(--art-tint-soft), var(--art-tint) 70%);
+}
+.hc-art--glyph[data-tint='violet'] { --art-tint: #2a1a52; --art-tint-soft: #4c2f8f; }
+.hc-art--glyph[data-tint='crimson'] { --art-tint: #3a1414; --art-tint-soft: #7a2020; }
+.hc-art--glyph[data-tint='plum'] { --art-tint: #2d1436; --art-tint-soft: #6b2a7a; }
+.hc-art--glyph[data-tint='graphite'] { --art-tint: #17171d; --art-tint-soft: #3c3c49; }
+.hc-glyph {
+  color: rgba(255, 255, 255, 0.92);
+  filter: drop-shadow(0 0 26px rgba(255, 255, 255, 0.28));
+  transform: translate3d(calc(var(--hx) * -10px), calc(var(--hy) * -10px), 0);
+}
+.hc-glyph .icon {
+  width: clamp(72px, 9vw, 118px);
+  height: clamp(72px, 9vw, 118px);
+  stroke-width: 2.2;
+}
+
+.hc-foil {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      hsl(263 70% 62%) 0%,
+      hsl(2 74% 59%) 8%,
+      hsl(0 0% 94%) 16%,
+      hsl(283 62% 55%) 24%,
+      hsl(345 68% 56%) 30%,
+      hsl(263 70% 62%) 37%
+    ),
+    radial-gradient(
+      farthest-corner circle at var(--mx) var(--my),
+      rgba(255, 255, 255, 0.72) 5%,
+      transparent 55%
+    );
+  background-size: 260% 260%, 100% 100%;
+  background-position: calc(50% + var(--hx) * 35%) calc(50% + var(--hy) * 35%), center;
+  mix-blend-mode: color-dodge;
+  filter: brightness(0.62) contrast(1.3) saturate(1.35)
+    hue-rotate(calc((var(--hx) + var(--hy)) * 28deg));
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.22) 72%, rgba(0, 0, 0, 0.4) 100%);
+  mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.22) 72%, rgba(0, 0, 0, 0.4) 100%);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+}
+.holo-card.is-live .hc-foil,
+.holo-card:focus-visible .hc-foil {
+  opacity: calc(0.35 + var(--hyp) * 0.45);
+}
+
+.hc-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 4;
+  background:
+    linear-gradient(
+      calc(115deg + var(--hx) * 30deg),
+      transparent 32%,
+      rgba(255, 255, 255, 0.25) 47%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0.25) 53%,
+      transparent 68%
+    ),
+    radial-gradient(220px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.28), transparent 60%);
+  background-position: calc(var(--hx) * 60% + 50%) 0, center;
+  mix-blend-mode: overlay;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.holo-card.is-live .hc-glare,
+.holo-card:focus-visible .hc-glare {
+  opacity: 1;
+}
+
+/* rarity ring (gradient border via mask-composite) */
+.hc-frame {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  padding: 2px;
+  z-index: 5;
+  pointer-events: none;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.holo-card[data-rarity='legendary'] .hc-frame {
+  /* prism ring — white↔violet shimmer, no gold anywhere */
+  background: linear-gradient(135deg, #f4f4f5, var(--accent-soft) 30%, #ffffff 50%, var(--accent) 70%, #f4f4f5);
+  background-size: 300% 300%;
+  animation: frameShimmer 6s linear infinite;
+}
+.holo-card[data-rarity='legendary'] .hc-tilt {
+  box-shadow: 0 0 30px -8px rgba(167, 139, 250, 0.5), var(--shadow-card);
+}
+.holo-card[data-rarity='epic'] .hc-frame {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft), var(--accent));
+}
+.holo-card[data-rarity='rare'] .hc-frame {
+  background: linear-gradient(135deg, #c9ced6, #8b93a1, #c9ced6);
+}
+@keyframes frameShimmer {
+  to { background-position: 300% 300%; }
+}
+
+/* title plate */
+.hc-plate {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 6;
+  padding: 10px 12px 9px;
+  border-radius: 9px;
+  background: linear-gradient(180deg, rgba(10, 10, 14, 0.55), rgba(6, 6, 9, 0.88));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transform: translate3d(calc(var(--hx) * 10px), calc(var(--hy) * 8px), 0);
+  pointer-events: none;
+}
+.hc-plate h3 {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.2;
+  color: #f4f4f5;
+}
+.hc-plate p {
+  margin: 3px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.02em;
+  color: rgba(244, 244, 245, 0.62);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* category seal */
+.hc-seal {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 6;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0b0b0e;
+  background: rgba(244, 244, 245, 0.88);
+  transform: translate3d(calc(var(--hx) * 14px), calc(var(--hy) * 11px), 0);
+  pointer-events: none;
+}
+
+/* rarity stars */
+.hc-rarity {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 6;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: rgba(233, 228, 255, 0.96);
+  text-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+  transform: translate3d(calc(var(--hx) * 14px), calc(var(--hy) * 11px), 0);
+  pointer-events: none;
+}
+.holo-card[data-rarity='epic'] .hc-rarity { color: var(--accent-soft); text-shadow: 0 0 8px rgba(167, 139, 250, 0.5); }
+.holo-card[data-rarity='rare'] .hc-rarity { color: #c9ced6; text-shadow: none; }
+
+/* shelf legend */
+.shelf-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 70px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+.shelf-legend span::before {
+  content: '◆ ';
+}
+.shelf-legend .lg-legendary::before { color: #e9e4ff; }
+.shelf-legend .lg-epic::before { color: var(--accent-soft); }
+.shelf-legend .lg-rare::before { color: #8b93a1; }
+
+.shelf-hint {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* ── mobile: tighter snap shelf ── */
+@media (max-width: 719px) {
+  .bookshelf {
+    scroll-snap-type: x mandatory;
+    padding: 24px 18vw 40px;
+  }
+  .holo-card,
+  .holo-card[data-rarity='epic'],
+  .holo-card[data-rarity='legendary'] {
+    width: 64vw;
+    rotate: 0deg;
+    translate: 0 0;
+  }
+  /* static diagonal foil so mobile still reads "holo" */
+  .hc-foil {
+    opacity: 0.18;
+    background-position: 30% 40%, center;
+  }
+}
+
+/* ── reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .hc-foil,
+  .hc-glare {
+    display: none;
+  }
+  .hc-frame {
+    animation: none;
+  }
+  .holo-card.is-opening .hc-tilt {
+    transform: none !important;
+    transition: none;
+  }
+}

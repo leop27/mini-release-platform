@@ -1,0 +1,72 @@
+/* ═══════════════════════════════════════════
+   HUD — secondary navigation layer. A fixed console
+   readout (bottom-left) that only materializes inside
+   the immersive/inverted chapters, speaking the
+   release-console language: section index, name,
+   local scroll progress. Plus shared styles for
+   per-section local navs (Journey dots).
+   ═══════════════════════════════════════════ */
+
+.hud {
+  position: fixed;
+  left: 22px;
+  bottom: 18px;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent-soft) 32%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, #0b0b0e 78%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #d6ccff;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+.hud.is-on { opacity: 1; transform: translateY(0); }
+.hud__prompt { color: var(--accent-2); }
+.hud__sec { color: rgba(244, 244, 245, 0.92); text-transform: uppercase; }
+.hud__meter {
+  position: relative;
+  width: 74px;
+  height: 5px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+.hud__meter i {
+  position: absolute;
+  inset: 0 100% 0 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+}
+.hud__pct { min-width: 4ch; color: rgba(214, 204, 255, 0.75); }
+
+@media (max-width: 860px) { .hud { display: none; } }
+
+/* ── Journey local dots nav ── */
+.story-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+.story-dots button {
+  width: 30px;
+  height: 6px;
+  border: 0;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--ink-2) 40%, transparent);
+  cursor: pointer;
+  transition: background 0.3s ease, width 0.3s var(--ease-out);
+}
+.story-dots button.is-active {
+  width: 52px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
