@@ -1,0 +1,87 @@
+/* ═══════════════════════════════════════════
+   MARQUEE — infinite horizontal type bands used as
+   physical seams between chapters (BeTheBuzz-style
+   repeated display type, re-voiced to SRE vocabulary).
+   Content is duplicated once in the markup; the track
+   translates −50% and loops. Transform-only, contained,
+   paused out of viewport by marquee.js.
+   ═══════════════════════════════════════════ */
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 34px 0;
+  contain: layout paint;
+  user-select: none;
+}
+.marquee__track {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marqueeX var(--marquee-speed, 26s) linear infinite;
+}
+.marquee.is-paused .marquee__track { animation-play-state: paused; }
+.marquee__chunk {
+  display: inline-flex;
+  align-items: baseline;
+  padding-right: 0.6em;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7.5vw, 110px);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+}
+.marquee__chunk i {
+  font-family: var(--font-italic);
+  font-style: italic;
+}
+.marquee__sep {
+  margin: 0 0.35em;
+  font-family: var(--font-mono);
+  font-size: 0.32em;
+  letter-spacing: 0.2em;
+  transform: translateY(-0.6em);
+}
+
+/* dark seam band — bridges a light section into an inverted one */
+.marquee--dark {
+  background: linear-gradient(180deg, var(--pole-lo), #0b0b0e 55%, #0b0b0e);
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent-soft) 65%, transparent);
+}
+.marquee--dark .marquee__sep { color: var(--accent-2); -webkit-text-stroke: 0; }
+
+/* violet identity band */
+.marquee--violet {
+  background: linear-gradient(120deg, #4c1d95, var(--accent) 45%, #2a1a52);
+  color: rgba(255, 255, 255, 0.94);
+}
+.marquee--violet .marquee__chunk i { color: #ffd9d9; }
+.marquee--violet .marquee__sep { color: rgba(255, 255, 255, 0.55); }
+
+/* light hairline band — vocabulary ticker, calmer */
+.marquee--light {
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+  color: var(--ink-0);
+}
+.marquee--light .marquee__chunk {
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 1.4vw, 18px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.marquee--light .marquee__chunk i { color: var(--accent); font-style: normal; }
+.marquee--light .marquee__sep { color: var(--accent-2); transform: none; }
+
+@keyframes marqueeX {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}

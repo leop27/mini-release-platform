@@ -1,0 +1,118 @@
+/* ═══════════════════════════════════════════
+   FIRMAS — every chapter enters with its own signature
+   move instead of one generic fade. Mechanism: reveal.js
+   already stamps `.in-view` on each [data-section]; each
+   signature below is pure CSS keyed to that class, with
+   nth-child staggers. Sections keeping the generic
+   [data-fade] system: hero, about, lab, colophon, contact
+   (deliberate breathing room).
+   ═══════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* WORK — cards condense out of transparency (blur-in), stagger */
+  #work .holo-card {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(30px);
+    transition: opacity 0.7s var(--ease-out), filter 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  }
+  #work.in-view .holo-card {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+  #work.in-view .holo-card:nth-child(1) { transition-delay: 0.05s; }
+  #work.in-view .holo-card:nth-child(2) { transition-delay: 0.14s; }
+  #work.in-view .holo-card:nth-child(3) { transition-delay: 0.23s; }
+  #work.in-view .holo-card:nth-child(4) { transition-delay: 0.32s; }
+  #work.in-view .holo-card:nth-child(5) { transition-delay: 0.41s; }
+
+  /* SYSTEMS — glass grid cascades in, scale settle */
+  #systems .glass-card {
+    opacity: 0;
+    transform: scale(0.94) translateY(18px);
+    transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-spring);
+  }
+  #systems.in-view .glass-card { opacity: 1; transform: scale(1) translateY(0); }
+  #systems.in-view .glass-card:nth-child(1) { transition-delay: 0.04s; }
+  #systems.in-view .glass-card:nth-child(2) { transition-delay: 0.11s; }
+  #systems.in-view .glass-card:nth-child(3) { transition-delay: 0.18s; }
+  #systems.in-view .glass-card:nth-child(4) { transition-delay: 0.25s; }
+  #systems.in-view .glass-card:nth-child(5) { transition-delay: 0.32s; }
+  #systems.in-view .glass-card:nth-child(6) { transition-delay: 0.39s; }
+
+  /* GRAVITY — the copy falls into place like a frame settling */
+  #gravity .gravity-inner > * {
+    opacity: 0;
+    transform: translateY(-30px) rotate(-0.6deg);
+    transition: opacity 0.6s var(--ease-out), transform 0.8s var(--ease-spring);
+  }
+  #gravity.in-view .gravity-inner > * { opacity: 1; transform: translateY(0) rotate(0deg); }
+  #gravity.in-view .gravity-inner > *:nth-child(2) { transition-delay: 0.12s; }
+  #gravity.in-view .gravity-inner > *:nth-child(3) { transition-delay: 0.24s; }
+
+  /* MACHINES — the road copy wipes open horizontally */
+  #machines .road-copy {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.9s var(--ease-out) 0.15s;
+  }
+  #machines.in-view .road-copy { clip-path: inset(0 0 0 0); }
+
+  /* JOURNEY — stops slide in laterally, like cars coupling */
+  #journey .story-scroll__item {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.6s var(--ease-out), transform 0.7s var(--ease-out);
+  }
+  #journey.in-view .story-scroll__item { opacity: 1; transform: translateX(0); }
+  #journey.in-view .story-scroll__item:nth-child(2) { transition-delay: 0.1s; }
+  #journey.in-view .story-scroll__item:nth-child(3) { transition-delay: 0.2s; }
+  #journey.in-view .story-scroll__item:nth-child(4) { transition-delay: 0.3s; }
+  #journey.in-view .story-scroll__item:nth-child(5) { transition-delay: 0.4s; }
+
+  /* GLOSARIO — flashcards flip in */
+  #glosario .glosario-card {
+    opacity: 0;
+    transform: perspective(900px) rotateY(-14deg) translateY(14px);
+    transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-out);
+  }
+  #glosario.in-view .glosario-card { opacity: 1; transform: perspective(900px) rotateY(0) translateY(0); }
+
+  /* JOURNAL — headlines draw their own underline */
+  #journal .journal-grid article h3 {
+    background-image: linear-gradient(90deg, var(--accent), var(--accent-2));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 2px;
+    transition: background-size 0.9s var(--ease-out) 0.25s;
+    padding-bottom: 6px;
+  }
+  #journal.in-view .journal-grid article h3 { background-size: 100% 2px; }
+
+  /* REPO — injected blocks rise with a short stagger */
+  #repo .repo-block {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+  }
+  #repo.in-view .repo-block { opacity: 1; transform: translateY(0); }
+  #repo.in-view .repo-block:nth-child(2) { transition-delay: 0.09s; }
+  #repo.in-view .repo-block:nth-child(3) { transition-delay: 0.18s; }
+  #repo.in-view .repo-block:nth-child(4) { transition-delay: 0.27s; }
+
+  /* PIPELINE — nodes power on in sequence */
+  #pipeline .pipe-node {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  }
+  #pipeline.in-view .pipe-node { opacity: 1; transform: translateY(0); }
+  #pipeline.in-view .pipe-node:nth-child(2) { transition-delay: 0.08s; }
+  #pipeline.in-view .pipe-node:nth-child(3) { transition-delay: 0.16s; }
+  #pipeline.in-view .pipe-node:nth-child(4) { transition-delay: 0.24s; }
+  #pipeline.in-view .pipe-node:nth-child(5) { transition-delay: 0.32s; }
+  #pipeline.in-view .pipe-node:nth-child(6) { transition-delay: 0.4s; }
+  #pipeline.in-view .pipe-node:nth-child(7) { transition-delay: 0.48s; }
+  #pipeline.in-view .pipe-node:nth-child(8) { transition-delay: 0.56s; }
+}

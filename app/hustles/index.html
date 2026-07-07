@@ -1,0 +1,802 @@
+<!doctype html>
+  <html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Personal platform for Leandro Picot, SRE / DevOps / Release Engineer. Systems, machines, and the work behind both."
+    >
+    <title>Leandro Picot | Building Systems. Building Machines. Building Myself.</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%237c3aed' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='32' cy='32' r='9'/%3E%3Cpath d='M32 10 L32 18 M32 46 L32 54 M10 32 L18 32 M46 32 L54 32 M17 17 L23 23 M41 41 L47 47 M47 17 L41 23 M23 41 L17 47'/%3E%3C/svg%3E">
+    <script>
+      // no-flash theme boot: runs before first paint
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('leo-theme'); } catch (e) {}
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        }
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap"
+    >
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/widgets.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/overlay.css">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="stylesheet" href="css/pipeline.css">
+    <link rel="stylesheet" href="css/marquee.css">
+    <link rel="stylesheet" href="css/collage.css">
+    <link rel="stylesheet" href="css/hud.css">
+    <link rel="stylesheet" href="css/firmas.css">
+    <link rel="stylesheet" href="css/motion.css">
+
+    <!-- Three.js via import map — no bundler, matches this
+         sub-repo's zero-build-step Docker/Nginx deploy. -->
+    <script type="importmap">
+      { "imports": { "three": "https://esm.sh/three@0.160.0" } }
+    </script>
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <!-- ══ LOADER ══ -->
+    <section id="loader" class="loader-screen">
+      <div class="loader-cols" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="loader-inner">
+        <div class="loader-logo">
+          <span class="loader-bars" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i>
+          </span>
+          <span class="loader-wordmark">Leo</span>
+        </div>
+        <p class="loader-version">Leandro Picot — Building Myself<br>v0.4</p>
+        <div class="loader-progress"><span class="loader-bar"></span></div>
+        <p class="loader-count" data-loader-count>0%</p>
+        <p class="loader-copyright">Bridging Engineering &amp; Operations.</p>
+      </div>
+    </section>
+
+    <header class="site-nav">
+      <a class="brand" href="#top">Leandro Picot</a>
+      <span class="nav-accent-wrap" aria-hidden="true">
+        <canvas id="navAccentCanvas" width="26" height="26"></canvas>
+      </span>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#lab">Lab</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#work">Work</a>
+        <a href="#systems">Systems</a>
+        <a href="#repo">Repo</a>
+        <a href="#gravity">Gravity</a>
+        <a href="#machines">Machines</a>
+        <a href="#journey">Journey</a>
+        <a href="#glosario">Glossary</a>
+        <a href="#colophon">Colophon</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </header>
+
+    <main id="top">
+      <!-- ══ HERO ══ -->
+      <section class="section hero" id="hero" data-section>
+        <div class="hero-grid">
+          <div data-fade>
+            <p class="eyebrow">SRE / DevOps / Release Engineer</p>
+            <h1>Building Systems. Building Machines. Building Myself.</h1>
+            <div class="social-bar" aria-label="Social links">
+              <a href="https://github.com/leop27" target="_blank" rel="noopener noreferrer"><span data-icon="github"></span>GitHub</a>
+              <a href="https://www.linkedin.com/in/leandropicot/" target="_blank" rel="noopener noreferrer"><span data-icon="person"></span>LinkedIn</a>
+              <a href="https://www.youtube.com/@kai2ensan" target="_blank" rel="noopener noreferrer"><span data-icon="play"></span>YouTube</a>
+              <a href="https://www.instagram.com/lpico7/" target="_blank" rel="noopener noreferrer"><span data-icon="camera"></span>Instagram</a>
+              <a href="mailto:leandropicot@gmail.com"><span data-icon="mail"></span>Email</a>
+            </div>
+            <p class="hero-text">
+              SRE / DevOps / Release Engineer at itti — I coordinate people,
+              processes and technology so releases ship, and roll back, on
+              purpose. Where steel meets the cloud.
+              <br><span class="hero-typewriter" aria-hidden="true"></span>
+            </p>
+            <div class="hero-actions">
+              <a class="button button--primary" href="#lab">View DevOps Lab</a>
+              <a class="button" href="#work">See the projects</a>
+              <a class="button" href="#contact">Get in touch</a>
+            </div>
+          </div>
+          <aside class="hero-panel" aria-label="Featured card" data-fade data-delay="150">
+            <div class="hero-card-slot"></div>
+            <div class="hero-chips">
+              <span><b>01</b> DevOps Lab</span>
+              <span><b>02</b> Work &amp; Projects</span>
+              <span><b>03</b> Machines</span>
+            </div>
+            <p class="hero-note mono">hover the card — real foil &amp; sprung tilt.</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ══ ABOUT / JOURNEY ══ -->
+      <section class="section" id="about" data-section data-grad="up">
+        <span class="bg-word" data-plx data-plx-speed="-40" aria-hidden="true">JOURNEY</span>
+        <div class="wrap">
+          <div class="split">
+            <div data-fade data-fade-dir="left">
+              <p class="eyebrow">About</p>
+              <h2>From railway operations to <em>release engineering</em>.</h2>
+              <hr class="hairline">
+            </div>
+            <div data-fade data-fade-dir="right" data-delay="120">
+              <p class="lede">
+                My background includes work as a railway worker and train driver,
+                where reliability, timing, responsibility, and calm execution were
+                part of everyday life.
+              </p>
+              <p>
+                Today I apply that same mindset to software delivery: clear
+                processes, resilient systems, automation, rollback thinking, and
+                documentation that another person can actually follow.
+              </p>
+              <div class="trajectory" aria-label="Career trajectory">
+                <span>Railway operations</span><i>→</i>
+                <span>Technical support</span><i>→</i>
+                <span>Customer engineering</span><i>→</i>
+                <span>Observability</span><i>→</i>
+                <span>SRE / Release</span>
+              </div>
+              <p>
+                DevOps work, mechanical restoration, and personal memory are
+                different materials, but they share the same practice: observe,
+                build, verify, document, and improve. Click a work front below
+                for the full story.
+              </p>
+            </div>
+          </div>
+
+          <div class="fronts">
+            <article class="front-card" data-fade data-fade-dir="left" data-open-panel="kong-split">
+              <p class="card-kicker">Work front · 01</p>
+              <h3>Kong Split</h3>
+              <p>
+                Owning the process of splitting a monolithic API gateway
+                configuration into pieces each squad can manage independently —
+                runbook, squad onboarding, tracking, and the documentation that
+                makes it repeatable.
+              </p>
+            </article>
+            <article class="front-card" data-fade data-delay="120" data-open-panel="facetec-aws">
+              <p class="card-kicker">Work front · 02</p>
+              <h3>FaceTec on AWS</h3>
+              <p>
+                Deep-work mapping of how a biometric system lives in AWS — ECS
+                services, task definitions, ECR, target groups and ALB routing —
+                translated into operational documentation the whole team can use.
+              </p>
+            </article>
+            <article class="front-card" data-fade data-fade-dir="right" data-delay="240" data-open-panel="github-enterprise">
+              <p class="card-kicker">Work front · 03</p>
+              <h3>GitHub Enterprise Migration</h3>
+              <p>
+                Cross-team guardian of a critical migration: keeping
+                traceability, being the reliable point of contact, and holding
+                operational awareness across areas without becoming the bottleneck.
+              </p>
+            </article>
+          </div>
+
+          <div class="stat-strip" data-fade>
+            <div class="stat"><b data-count="3">0</b><span>Active work fronts</span></div>
+            <div class="stat"><b data-count="5">0</b><span>Projects on record</span></div>
+            <div class="stat"><b data-count="2">0</b><span>Machines in the garage</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ DEVOPS LAB ══ -->
+      <section class="section section--immersive" id="lab" data-section>
+        <span class="bg-word" data-plx data-plx-speed="-80" aria-hidden="true">LAB</span>
+        <canvas id="labAmbientCanvas" class="canvas-bg" aria-hidden="true"></canvas>
+        <div class="wrap">
+          <div class="section-head" data-fade>
+            <p class="eyebrow">DevOps Lab</p>
+            <h2>Small platforms that explain real workflows.</h2>
+            <p class="lede">
+              A space for hands-on infrastructure, CI/CD, release automation, and
+              operational documentation.
+            </p>
+            <hr class="hairline">
+          </div>
+
+          <div class="cards">
+            <article class="card" data-fade>
+              <p class="card-kicker">Current project</p>
+              <h3>Mini Release Platform</h3>
+              <p>
+                A static platform validated by GitHub Actions — Docker build,
+                readiness-checked smoke test, Terraform fmt/validate — and shipped
+                to Terraform-managed AWS S3 static hosting. Docker, CI/CD, IaC and
+                release documentation, all in one repeatable path.
+              </p>
+            </article>
+            <article class="card" data-fade data-delay="120">
+              <p class="card-kicker">Focus</p>
+              <h3>Release discipline</h3>
+              <p>
+                Build, validate, deploy, observe, and rollback. The goal is not
+                complexity; it is making the delivery path visible and repeatable.
+              </p>
+            </article>
+            <article class="card" data-fade data-delay="240">
+              <p class="card-kicker">Operating principle</p>
+              <h3>Simple before clever</h3>
+              <p>
+                Prefer clear workflows, small pieces, documented decisions, and
+                infrastructure that can be rebuilt from source.
+              </p>
+            </article>
+          </div>
+
+          <div class="case-study" data-fade>
+            <p class="eyebrow">Case study</p>
+            <h3>The pipeline this page ships through</h3>
+            <p class="case-study__link"><a href="#pipeline">Walk the full pipeline, stage by stage →</a></p>
+            <pre class="pipeline-diagram" aria-label="Release pipeline diagram">
+git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke test (curl)
+                    │
+                    └──▶ terraform fmt + validate ──▶ <b>aws s3 sync</b> ──▶ S3 static website</pre>
+            <div class="war-story">
+              <div>
+                <h3>A real lesson: <code>curl: (56)</code></h3>
+                <p>
+                  The first CI run failed with <code>curl: (56) Recv failure</code>.
+                  The cause: <code>docker run -d</code> only means the container
+                  started — Nginx could still be initializing. A race condition.
+                </p>
+              </div>
+              <div>
+                <h3>The fix: readiness thinking</h3>
+                <p>
+                  The pipeline now retries the smoke test while the service warms
+                  up, prints logs when something fails, and always cleans up its
+                  containers. Small platform, real reliability lesson.
+                </p>
+              </div>
+            </div>
+            <p class="meta-line">
+              This very page ships through the pipeline it documents — validated
+              in CI, then synced to S3 —
+              <a href="https://github.com/leop27/mini-release-platform" rel="noreferrer">
+                see the repository</a>.
+            </p>
+            <div class="roadmap">
+              <div><span>next / 01</span><p>Publish the first Peugeot 504 restoration log.</p></div>
+              <div><span>next / 02</span><p>Create a dedicated DevOps Lab page for technical project writeups.</p></div>
+              <div><span>next / 03</span><p>Add a project timeline that connects releases, repairs, and learning notes.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ MARQUEE A — seam lab → pipeline ══ -->
+      <div class="marquee marquee--dark" aria-hidden="true">
+        <div class="marquee__track">
+          <span class="marquee__chunk">BUILD<span class="marquee__sep">/</span>VALIDATE<span class="marquee__sep">/</span>RELEASE<span class="marquee__sep">/</span>ROLLBACK<span class="marquee__sep">/</span>OBSERVE<span class="marquee__sep">/</span></span>
+          <span class="marquee__chunk">BUILD<span class="marquee__sep">/</span>VALIDATE<span class="marquee__sep">/</span>RELEASE<span class="marquee__sep">/</span>ROLLBACK<span class="marquee__sep">/</span>OBSERVE<span class="marquee__sep">/</span></span>
+        </div>
+      </div>
+
+      <!-- ══ PIPELINE — repo → production, pinned horizontal timeline ══ -->
+      <section class="section section--immersive" id="pipeline" data-section>
+        <div class="wrap--wide" id="view-pipeline"></div>
+      </section>
+
+      <!-- ══ WORK & PROJECTS (holographic cards, ex "The Library") ══ -->
+      <section class="section section--inverted" id="work" data-section>
+        <span class="bg-word" data-plx data-plx-speed="60" aria-hidden="true">WORK</span>
+        <div class="wrap--wide">
+          <div class="section-head section-head--overlap" data-fade>
+            <p class="eyebrow">Work &amp; Projects</p>
+            <h2>Every system I run, <em>as a card</em>.</h2>
+            <p class="lede">
+              Real work fronts and the one repository that ships this very
+              site. Hover a card to see it shine; open one for the full story.
+            </p>
+            <hr class="hairline">
+          </div>
+          <div class="bookshelf" aria-label="Project collection"></div>
+          <p class="shelf-hint">swipe to browse →</p>
+          <div class="shelf-legend" aria-hidden="true">
+            <span class="lg-legendary">Legendary — current project</span>
+            <span class="lg-epic">Epic — active work front</span>
+            <span class="lg-rare">Rare — roadmap</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SYSTEMS & TOOLS (glass cards) ══ -->
+      <section class="section" id="systems" data-section>
+        <span class="bg-note bg-note--right" style="top:120px;right:6%;">
+          <b>note:</b> click a card — it opens what it actually runs, in place.
+        </span>
+        <div class="wrap">
+          <div class="section-head section-head--overlap" data-fade>
+            <p class="eyebrow">Systems &amp; Tools</p>
+            <h2>The real stack <em>behind the release</em>.</h2>
+            <p class="lede">Click any card to open what it actually runs.</p>
+            <hr class="hairline">
+          </div>
+          <div class="glass-grid" id="systemsGrid">
+            <div class="glass-card" data-info="docker">
+              <div class="glass-card__top"><span class="glass-card__id mono">SYS-001</span><button class="glass-card__x" aria-label="close" data-icon="close"></button></div>
+              <div class="glass-card__icon" data-icon="container"></div>
+              <h3 class="glass-card__title">Docker + Nginx</h3>
+              <p class="glass-card__sub">app/Dockerfile</p>
+              <div class="glass-card__data">
+                <p>FROM nginx:1.27-alpine, version pinned — not :latest. Serves the static app/ folder directly, same image validated in CI before it ever reaches S3.</p>
+                <div class="glass-card__tags"><span>Docker</span><span>Nginx</span></div>
+              </div>
+            </div>
+            <div class="glass-card" data-info="terraform">
+              <div class="glass-card__top"><span class="glass-card__id mono">SYS-002</span><button class="glass-card__x" aria-label="close" data-icon="close"></button></div>
+              <div class="glass-card__icon" data-icon="layers"></div>
+              <h3 class="glass-card__title">Terraform</h3>
+              <p class="glass-card__sub">infra/*.tf</p>
+              <div class="glass-card__data">
+                <p>main.tf, variables.tf, outputs.tf — an S3 static-website bucket, free-tier guardrailed. fmt + validate run in CI; no terraform apply without manual approval.</p>
+                <div class="glass-card__tags"><span>IaC</span><span>AWS S3</span></div>
+              </div>
+            </div>
+            <div class="glass-card" data-info="actions">
+              <div class="glass-card__top"><span class="glass-card__id mono">SYS-003</span><button class="glass-card__x" aria-label="close" data-icon="close"></button></div>
+              <div class="glass-card__icon" data-icon="pipeline"></div>
+              <h3 class="glass-card__title">GitHub Actions</h3>
+              <p class="glass-card__sub">.github/workflows/</p>
+              <div class="glass-card__data">
+                <p>ci.yml validates structure, Docker build and Terraform fmt on every push. deploy.yml keeps release separate from validation — no auto-deploy without approval.</p>
+                <div class="glass-card__tags"><span>CI</span><span>CD</span></div>
+              </div>
+            </div>
+            <div class="glass-card" data-info="kong">
+              <div class="glass-card__top"><span class="glass-card__id mono">SYS-004</span><button class="glass-card__x" aria-label="close" data-icon="close"></button></div>
+              <div class="glass-card__icon" data-icon="gateway"></div>
+              <h3 class="glass-card__title">Kong Gateway</h3>
+              <p class="glass-card__sub">Work front · 01</p>
+              <div class="glass-card__data">
+                <p>Splitting one monolithic gateway config into squad-owned pieces — runbook, onboarding, tracking. Priority: close 1–2 complete splits in DEV.</p>
+                <div class="glass-card__tags"><span>API Gateway</span><span>Platform Ops</span></div>
+              </div>
+            </div>
+            <div class="glass-card" data-info="ecs">
+              <div class="glass-card__top"><span class="glass-card__id mono">SYS-005</span><button class="glass-card__x" aria-label="close" data-icon="close"></button></div>
+              <div class="glass-card__icon" data-icon="loadbalancer"></div>
+              <h3 class="glass-card__title">ECS + ALB</h3>
+              <p class="glass-card__sub">Work front · 02</p>
+              <div class="glass-card__data">
+                <p>ECS services, task definitions, ECR, target groups and ALB routing for FaceTec on AWS — mapped into documentation the whole team can use.</p>
+                <div class="glass-card__tags"><span>ECS</span><span>ALB</span></div>
+              </div>
+            </div>
+            <div class="glass-card" data-info="ghe">
+              <div class="glass-card__top"><span class="glass-card__id mono">SYS-006</span><button class="glass-card__x" aria-label="close" data-icon="close"></button></div>
+              <div class="glass-card__icon" data-icon="branch"></div>
+              <h3 class="glass-card__title">GitHub Enterprise</h3>
+              <p class="glass-card__sub">Work front · 03</p>
+              <div class="glass-card__data">
+                <p>Cross-team migration guardian: traceability, reliable point of contact, operational awareness across areas without becoming the bottleneck.</p>
+                <div class="glass-card__tags"><span>Migration</span><span>Cross-team</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ REPO — case study, live GitHub API ══ -->
+      <section class="section section--immersive" id="repo" data-section>
+        <span class="bg-word" data-plx data-plx-speed="-50" aria-hidden="true">REPO</span>
+        <div class="wrap" id="view-repo"></div>
+      </section>
+
+      <!-- ══ GRAVITY — Three.js immersive set-piece ══ -->
+      <section class="section gravity-section section--immersive" id="gravity" data-section>
+        <span class="bg-word" data-plx data-plx-speed="40" aria-hidden="true">GRAVITY</span>
+        <canvas id="gravityCanvas" class="canvas-bg" aria-hidden="true"></canvas>
+        <div class="gravity-inner" data-fade>
+          <p class="eyebrow">Discover gravity</p>
+          <h2>Release engineering is holding structure in zero gravity.</h2>
+          <p class="lede">
+            Every one of these frames is a piece of the system: a runbook, a
+            pipeline stage, a rollback plan — floating independently, held
+            together by process, not by luck. Move your mouse. Nothing here
+            falls unless you let go of the discipline that's holding it up.
+          </p>
+        </div>
+      </section>
+
+      <!-- ══ MACHINES & ROAD MEMORIES ══ -->
+      <section class="section section--inverted machines" id="machines" data-section>
+        <div class="road-scene">
+          <div class="road-sticky">
+            <img src="assets/images/espalda-lago.jpg" alt="Leandro looking at a lake during a Renault 4 travel memory" fetchpriority="low">
+            <div class="road-scrim" aria-hidden="true"></div>
+            <div class="road-copy" data-fade>
+              <p class="eyebrow">Machines &amp; Road Memories</p>
+              <h2>Mechanical work as another kind of systems thinking.</h2>
+              <p>
+                Machines teach diagnosis, patience, sequencing, and respect for
+                cause and effect. Those lessons carry directly into engineering
+                production systems — a stuck bolt and a stuck deploy ask the
+                same question: what changed right before this stopped working?
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="machines-body">
+          <div class="wrap">
+            <p class="lede" data-fade>
+              A personal archive for simple machines, roads, travel stories, and
+              the memories that connect movement with identity.
+            </p>
+            <div class="machine-figures">
+              <figure data-fade>
+                <img src="assets/images/capot-abierto.jpg" alt="Renault 4 with open hood during mechanical inspection" loading="lazy">
+                <figcaption>Mechanical thinking in practice</figcaption>
+              </figure>
+              <figure data-fade data-delay="150">
+                <img src="assets/images/cerrando-capot.jpg" alt="Closing the hood of a Renault 4 during a road memory" loading="lazy">
+                <figcaption>Renault 4 road memory</figcaption>
+              </figure>
+            </div>
+            <hr class="hairline hairline--warm">
+            <div class="timeline" style="margin-top: 50px;">
+              <div data-fade>
+                <span>Travel memories</span>
+                <strong>Renault 4</strong>
+                <p>
+                  A symbol of movement, simple mechanics, and memorable road
+                  stories.
+                </p>
+              </div>
+              <div data-fade data-delay="150">
+                <span>Restoration project</span>
+                <strong>Peugeot 504</strong>
+                <p>
+                  A long-term project about rebuilding carefully, learning by
+                  doing, and respecting the original machine.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ MARQUEE B — identity band ══ -->
+      <div class="marquee marquee--violet" aria-hidden="true">
+        <div class="marquee__track">
+          <span class="marquee__chunk">BUILDING <i>SYSTEMS</i><span class="marquee__sep">—</span>BUILDING <i>MACHINES</i><span class="marquee__sep">—</span>BUILDING <i>MYSELF</i><span class="marquee__sep">—</span></span>
+          <span class="marquee__chunk">BUILDING <i>SYSTEMS</i><span class="marquee__sep">—</span>BUILDING <i>MACHINES</i><span class="marquee__sep">—</span>BUILDING <i>MYSELF</i><span class="marquee__sep">—</span></span>
+        </div>
+      </div>
+
+      <!-- ══ COLLAGE — the working method, editorial type + photos ══ -->
+      <section class="collage" aria-label="The working method">
+        <p class="collage__note collage__note--tl">
+          <b>the method</b> — the same loop for a stuck deploy and a stuck bolt: observe, build, verify, document, improve.
+        </p>
+        <div class="collage__row collage__row--1">
+          <span class="collage__word collage__word--outline">OBSERVE</span>
+          <span class="collage__img"><img src="assets/images/espalda-lago.jpg" alt="" loading="lazy"></span>
+          <span class="collage__word">BUILD</span>
+        </div>
+        <div class="collage__row collage__row--2">
+          <span class="collage__word collage__word--script">verify</span>
+          <span class="collage__img"><img src="assets/images/capot-abierto.jpg" alt="" loading="lazy"></span>
+          <span class="collage__word collage__word--violet">DOCUMENT</span>
+        </div>
+        <div class="collage__row collage__row--3">
+          <span class="collage__word">&amp;</span>
+          <span class="collage__img"><img src="assets/images/cerrando-capot.jpg" alt="" loading="lazy"></span>
+          <span class="collage__word collage__word--outline">IMPROVE</span>
+        </div>
+        <p class="collage__note collage__note--br">
+          restoration is debugging with metal. same discipline, different material.
+        </p>
+      </section>
+
+      <!-- ══ JOURNEY — horizontal story-scroll ══ -->
+      <section class="section story-scroll" id="journey" data-section>
+        <div class="section-head" data-fade>
+          <p class="eyebrow">The trajectory</p>
+          <h2>Five stops, <em>one direction</em>.</h2>
+          <p class="lede">Drag horizontally — this is the long way from railway to release.</p>
+          <hr class="hairline">
+        </div>
+        <div class="story-scroll__container" id="storyScroll">
+          <div class="story-scroll__item">
+            <div class="story-scroll__item-bg" style="background: linear-gradient(135deg, #2a2a33 0%, #101014 100%);"></div>
+            <div class="story-scroll__item-overlay"></div>
+            <div class="story-scroll__item-content">
+              <div class="story-scroll__item-tag">Stop 1 · Railway</div>
+              <div class="story-scroll__item-title">Reliability<br>on rails</div>
+              <div class="story-scroll__item-text">Timing, responsibility, calm execution — before any of it had a name in software.</div>
+            </div>
+          </div>
+          <div class="story-scroll__item">
+            <div class="story-scroll__item-bg" style="background: linear-gradient(135deg, #3a2a52 0%, #1a1024 100%);"></div>
+            <div class="story-scroll__item-overlay"></div>
+            <div class="story-scroll__item-content">
+              <div class="story-scroll__item-tag">Stop 2 · Support</div>
+              <div class="story-scroll__item-title">Technical<br>support</div>
+              <div class="story-scroll__item-text">First contact with production — and with the gap between "it works" and "it's ready".</div>
+            </div>
+          </div>
+          <div class="story-scroll__item">
+            <div class="story-scroll__item-bg" style="background: linear-gradient(135deg, #2d1a1a 0%, #140b0b 100%);"></div>
+            <div class="story-scroll__item-overlay"></div>
+            <div class="story-scroll__item-content">
+              <div class="story-scroll__item-tag">Stop 3 · Observability</div>
+              <div class="story-scroll__item-title">Reading the<br>signal</div>
+              <div class="story-scroll__item-text">Learning to see a system through its telemetry before touching anything.</div>
+            </div>
+          </div>
+          <div class="story-scroll__item">
+            <div class="story-scroll__item-bg" style="background: linear-gradient(135deg, #1a2a2e 0%, #0b1416 100%);"></div>
+            <div class="story-scroll__item-overlay"></div>
+            <div class="story-scroll__item-content">
+              <div class="story-scroll__item-tag">Stop 4 · SRE / Release</div>
+              <div class="story-scroll__item-title">Bridging<br>eng &amp; ops</div>
+              <div class="story-scroll__item-text">Kong Split, FaceTec on AWS, GitHub Enterprise — the three fronts running today.</div>
+            </div>
+          </div>
+          <div class="story-scroll__item">
+            <div class="story-scroll__item-bg" style="background: linear-gradient(135deg, #2a1a52 0%, #14101f 100%);"></div>
+            <div class="story-scroll__item-overlay"></div>
+            <div class="story-scroll__item-content">
+              <div class="story-scroll__item-tag">Next stop · Your call</div>
+              <div class="story-scroll__item-title">Whatever <span style="color: var(--accent-soft); font-style: italic;">ships next</span></div>
+              <div class="story-scroll__item-text">Sprint 3 in design: Terraform → S3, then a documented rollback path.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ GLOSSARY ══ -->
+      <section class="section" id="glosario" data-section>
+        <div class="wrap" id="view-glosario"></div>
+      </section>
+
+      <!-- ══ MARQUEE C — vocabulary ticker ══ -->
+      <div class="marquee marquee--light" aria-hidden="true">
+        <div class="marquee__track">
+          <span class="marquee__chunk">KONG SPLIT<span class="marquee__sep">/</span>TASK DEFINITION<span class="marquee__sep">/</span>TARGET GROUP<span class="marquee__sep">/</span>RUNBOOK<span class="marquee__sep">/</span>READINESS<span class="marquee__sep">/</span>ROLLBACK<span class="marquee__sep">/</span></span>
+          <span class="marquee__chunk">KONG SPLIT<span class="marquee__sep">/</span>TASK DEFINITION<span class="marquee__sep">/</span>TARGET GROUP<span class="marquee__sep">/</span>RUNBOOK<span class="marquee__sep">/</span>READINESS<span class="marquee__sep">/</span>ROLLBACK<span class="marquee__sep">/</span></span>
+        </div>
+      </div>
+
+      <!-- ══ JOURNAL ══ -->
+      <section class="section" id="journal" data-section data-grad="up">
+        <div class="wrap">
+          <div class="section-head section-head--offset" data-fade>
+            <p class="eyebrow">Journal</p>
+            <h2>Learning in public, <em>one system at a time</em>.</h2>
+            <p class="lede">
+              Notes on release engineering, infrastructure, restoration, and the
+              personal process of becoming better at the work.
+            </p>
+            <hr class="hairline">
+          </div>
+          <div class="journal-grid">
+            <article data-fade>
+              <span>DevOps</span>
+              <h3>What a release pipeline should prove</h3>
+              <p>
+                A good pipeline does more than run commands. It builds trust in a
+                change before that change reaches users.
+              </p>
+            </article>
+            <article data-fade data-delay="120">
+              <span>Machines</span>
+              <h3>Restoration is debugging with metal</h3>
+              <p>
+                Start with symptoms, inspect the system, make one change at a
+                time, and verify the result.
+              </p>
+            </article>
+            <article data-fade data-delay="240">
+              <span>Personal</span>
+              <h3>Building myself</h3>
+              <p>
+                The work is technical, but the practice is also personal:
+                consistency, focus, and the humility to keep learning.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ COLOPHON / ACERCA ══ -->
+      <section class="section section--gradient-bn" id="colophon" data-section>
+        <div class="wrap" id="view-acerca"></div>
+      </section>
+
+      <!-- ══ CONTACT ══ -->
+      <section class="section" id="contact" data-section>
+        <div class="contact-inner" data-fade>
+          <p class="eyebrow">Contact</p>
+          <h2>Open to SRE, DevOps, and Release Engineering conversations.</h2>
+          <p class="lede">
+            This platform is a living portfolio for practical engineering work,
+            mechanical projects, and personal learning.
+          </p>
+          <div class="contact-links">
+            <a class="button button--primary" href="https://github.com/leop27" rel="noreferrer">GitHub</a>
+            <a class="button" href="https://www.linkedin.com/in/leandropicot/" rel="noreferrer">LinkedIn</a>
+          </div>
+          <article class="contact-card" data-open-panel="contact-details">
+            <p class="contact-card__label">// AVAILABILITY</p>
+            <p>Currently at itti as SRE / Release DevOps, open to conversations about platform operations, release engineering, and cross-team migrations. Click for the full picture.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-giant">
+        <div class="footer-giant__type"><em>Building</em><br><b>Systems.</b> Machines. <em>Myself.</em></div>
+        <p class="footer-giant__sub">A living portfolio for practical engineering work — updated the same way the pipeline it documents ships: reviewed, then released.</p>
+        <div class="footer-trust">
+          <div><b>3</b><span>Sprints shipped</span></div>
+          <div><b>3</b><span>Active work fronts</span></div>
+          <div><b>0</b><span>Invented achievements</span></div>
+        </div>
+      </div>
+
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Leandro Picot</div>
+          <div class="footer__brand-sub">SRE / DevOps / Release Engineer — building in public.</div>
+        </div>
+        <div>
+          <div class="footer__col-title">Platform</div>
+          <ul class="footer__links">
+            <li><a href="#lab">DevOps Lab</a></li>
+            <li><a href="#work">Work &amp; Projects</a></li>
+            <li><a href="#glosario">Glossary</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Contact</div>
+          <ul class="footer__links">
+            <li><a href="https://github.com/leop27" rel="noreferrer">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/leandropicot/" rel="noreferrer">LinkedIn</a></li>
+            <li><a href="https://github.com/leop27/mini-release-platform" rel="noreferrer">This site's pipeline</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="footer__copy">© 2026 Leandro Picot — Building Systems. Building Machines. Building Myself.</div>
+        <div class="footer__socials">
+          <a href="https://github.com/leop27" class="footer__social" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.79-.25.79-.55v-2.14c-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.69-1.28-1.69-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.53-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.8 1.18 1.83 1.18 3.09 0 4.43-2.7 5.4-5.27 5.68.42.36.78 1.08.78 2.17v3.22c0 .3.21.66.8.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/leandropicot/" class="footer__social" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+          </a>
+          <a href="https://github.com/leop27/mini-release-platform" class="footer__social" target="_blank" rel="noreferrer" aria-label="Pipeline repository">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 2 7v10l10 5 10-5V7l-10-5Zm0 2.24L19 8l-7 3.5L5 8l7-3.76ZM4 9.62l7 3.5v7.02l-7-3.5V9.62Zm9 10.52v-7.02l7-3.5v7.02l-7 3.5Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ══ SIDE PANELS (work-front detail drawers) ══ -->
+    <div class="panel-overlay" id="panelOverlay"></div>
+
+    <div class="side-panel" id="panel-kong-split">
+      <div class="side-panel__head">
+        <div>
+          <div class="side-panel__title">Kong Split</div>
+          <div class="side-panel__subtitle">API Gateway · Platform Ops</div>
+          <span class="side-panel__badge">Work front · 01</span>
+        </div>
+        <button class="side-panel__close" data-close-panel aria-label="Close" data-icon="close"></button>
+      </div>
+      <div class="side-panel__body">
+        <p class="side-panel__section-title">What it is</p>
+        <p class="side-panel__text">Splitting one monolithic API gateway configuration into pieces each squad can own and manage independently — instead of a single shared config every team is afraid to touch.</p>
+        <p class="side-panel__section-title">Scope</p>
+        <div class="spec-grid">
+          <div class="spec-row"><span class="spec-k">Runbook</span><span class="spec-v">Written &amp; in use</span></div>
+          <div class="spec-row"><span class="spec-k">Onboarding</span><span class="spec-v">Per-squad, defined</span></div>
+          <div class="spec-row spec-row--full"><span class="spec-k">Priority</span><span class="spec-v">Close 1–2 complete splits in DEV</span></div>
+        </div>
+        <p class="side-panel__section-title">Why it matters</p>
+        <p class="side-panel__text">Team Topologies in real time: redrawing team boundaries, not just moving config. Scope discipline is release discipline.</p>
+      </div>
+    </div>
+
+    <div class="side-panel" id="panel-facetec-aws">
+      <div class="side-panel__head">
+        <div>
+          <div class="side-panel__title">FaceTec on AWS</div>
+          <div class="side-panel__subtitle">ECS · Task Definitions · ALB</div>
+          <span class="side-panel__badge">Work front · 02</span>
+        </div>
+        <button class="side-panel__close" data-close-panel aria-label="Close" data-icon="close"></button>
+      </div>
+      <div class="side-panel__body">
+        <p class="side-panel__section-title">What it is</p>
+        <p class="side-panel__text">Deep-work mapping of how a biometric verification system lives in AWS, end to end — from container to traffic routing.</p>
+        <p class="side-panel__section-title">Surface mapped</p>
+        <div class="spec-grid">
+          <div class="spec-row"><span class="spec-k">Compute</span><span class="spec-v">ECS Services</span></div>
+          <div class="spec-row"><span class="spec-k">Blueprint</span><span class="spec-v">Task Definitions</span></div>
+          <div class="spec-row"><span class="spec-k">Images</span><span class="spec-v">ECR</span></div>
+          <div class="spec-row"><span class="spec-k">Routing</span><span class="spec-v">Target Groups ↔ ALB</span></div>
+        </div>
+        <p class="side-panel__section-title">Why it matters</p>
+        <p class="side-panel__text">Translates tribal knowledge into operational documentation the whole team can use — not locked in one head.</p>
+      </div>
+    </div>
+
+    <div class="side-panel" id="panel-github-enterprise">
+      <div class="side-panel__head">
+        <div>
+          <div class="side-panel__title">GitHub Enterprise Migration</div>
+          <div class="side-panel__subtitle">Cross-team traceability</div>
+          <span class="side-panel__badge">Work front · 03</span>
+        </div>
+        <button class="side-panel__close" data-close-panel aria-label="Close" data-icon="close"></button>
+      </div>
+      <div class="side-panel__body">
+        <p class="side-panel__section-title">Role</p>
+        <p class="side-panel__text">Guardian of a critical, cross-team migration — the reliable point of contact holding operational awareness across areas.</p>
+        <p class="side-panel__section-title">What it takes</p>
+        <div class="spec-grid">
+          <div class="spec-row spec-row--full"><span class="spec-k">Traceability</span><span class="spec-v">Kept across every team involved</span></div>
+          <div class="spec-row spec-row--full"><span class="spec-k">Balance</span><span class="spec-v">Hold the line without becoming the bottleneck</span></div>
+        </div>
+        <p class="side-panel__section-title">Why it matters</p>
+        <p class="side-panel__text">Leading and following at once — own everything, empower others, stay disciplined without being rigid.</p>
+      </div>
+    </div>
+
+    <div class="side-panel" id="panel-contact-details">
+      <div class="side-panel__head">
+        <div>
+          <div class="side-panel__title">Availability</div>
+          <div class="side-panel__subtitle">SRE / DevOps / Release Engineering</div>
+        </div>
+        <button class="side-panel__close" data-close-panel aria-label="Close" data-icon="close"></button>
+      </div>
+      <div class="side-panel__body">
+        <p class="side-panel__section-title">Today</p>
+        <p class="side-panel__text">SRE / Release DevOps at itti, running Kong Split, FaceTec on AWS, and the GitHub Enterprise migration.</p>
+        <p class="side-panel__section-title">Open to</p>
+        <p class="side-panel__text">Platform operations, release engineering, and cross-team coordination conversations. Outcome-driven, no corporate-speak.</p>
+        <a class="side-panel__cta" href="https://www.linkedin.com/in/leandropicot/" rel="noreferrer">Message on LinkedIn</a>
+      </div>
+    </div>
+  </body>
+</html>
