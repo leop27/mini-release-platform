@@ -19,11 +19,11 @@ const ICONS = {
   layers: P('M32 8 L56 20 L32 32 L8 20 Z') + P('M8 32 L32 44 L56 32', 2.5) + P('M8 42 L32 54 L56 42', 2.5),
   /* pipeline — stages flowing right */
   pipeline: C(12, 32, 6) + C(32, 32, 6) + P('M18 32 L26 32', 2.5) + P('M38 32 L46 32', 2.5) + P('M46 26 L56 32 L46 38 Z'),
-  /* kong / gateway — diamond splitting one flow into two */
+  /* api-platform / gateway — diamond splitting one flow into two */
   gateway: P('M32 12 L48 32 L32 52 L16 32 Z') + P('M4 32 L16 32', 2.5) + P('M48 32 L60 22 M48 32 L60 42', 2.5) + C(60, 22, 2.5, 2.5) + C(60, 42, 2.5, 2.5),
-  /* ALB — one entry balanced into three targets */
+  /* traffic routing — one entry balanced into three targets */
   loadbalancer: C(12, 32, 6) + P('M18 32 L30 32 M30 32 L44 14 M30 32 L44 32 M30 32 L44 50', 2.5) + C(50, 14, 5, 2.5) + C(50, 32, 5, 2.5) + C(50, 50, 5, 2.5),
-  /* ECR / registry — image shelf */
+  /* image registry / registry — image shelf */
   registry: P('M10 12 L54 12 L54 52 L10 52 Z') + P('M10 25 L54 25 M10 38 L54 38', 2.5) + P('M17 18.5 L25 18.5 M17 31.5 L25 31.5 M17 44.5 L25 44.5', 2.5),
   /* secrets — padlock */
   lock: P('M16 28 L48 28 L48 54 L16 54 Z') + P('M22 28 L22 20 Q22 10 32 10 Q42 10 42 20 L42 28', 2.5) + P('M32 38 L32 46', 2.5) + C(32, 37, 3, 2.5),

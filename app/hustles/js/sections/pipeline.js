@@ -74,7 +74,7 @@ export function initPipelineSection() {
         <header class="section-head pipe-head">
           <p class="eyebrow">// Release Velocity</p>
           <h2>From <em>repo</em> to production, engineering the flow.</h2>
-          <p class="lede">The real path a change travels through mini-release-platform. Scroll to advance — every stage is real; the greyed one is declared roadmap.</p>
+          <p class="lede">The real path a change travels through portfolio release platform. Scroll to advance — every stage is real; the greyed one is declared roadmap.</p>
           <div class="pipe-progress"><span class="pipe-progress__fill" id="pipe-fill"></span></div>
         </header>
         <div class="pipe-viewport" id="pipe-viewport">

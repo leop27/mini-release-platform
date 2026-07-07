@@ -114,7 +114,7 @@
               <a href="mailto:leandropicot@gmail.com"><span data-icon="mail"></span>Email</a>
             </div>
             <p class="hero-text">
-              SRE / DevOps / Release Engineer at itti — I coordinate people,
+              SRE / DevOps / Release Engineer at an enterprise environment — I coordinate people,
               processes and technology so releases ship, and roll back, on
               purpose. Where steel meets the cloud.
               <br><span class="hero-typewriter" aria-hidden="true"></span>
@@ -175,9 +175,9 @@
           </div>
 
           <div class="fronts">
-            <article class="front-card" data-fade data-fade-dir="left" data-open-panel="kong-split">
+            <article class="front-card" data-fade data-fade-dir="left" data-open-panel="api-platform">
               <p class="card-kicker">Work front · 01</p>
-              <h3>Kong Split</h3>
+              <h3>API Platform Modernization</h3>
               <p>
                 Owning the process of splitting a monolithic API gateway
                 configuration into pieces each squad can manage independently —
@@ -185,12 +185,12 @@
                 makes it repeatable.
               </p>
             </article>
-            <article class="front-card" data-fade data-delay="120" data-open-panel="facetec-aws">
+            <article class="front-card" data-fade data-delay="120" data-open-panel="cloud-infrastructure">
               <p class="card-kicker">Work front · 02</p>
-              <h3>FaceTec on AWS</h3>
+              <h3>Cloud Infrastructure Mapping</h3>
               <p>
-                Deep-work mapping of how a biometric system lives in AWS — ECS
-                services, task definitions, ECR, target groups and ALB routing —
+                Deep-work mapping of how a service platform uses cloud infrastructure:
+                container services, task definitions, image registry and traffic routing.
                 translated into operational documentation the whole team can use.
               </p>
             </article>
@@ -213,7 +213,7 @@
         </div>
       </section>
 
-      <!-- ══ DEVOPS LAB ══ -->
+      <!-- DEVOPS LAB -->
       <section class="section section--immersive" id="lab" data-section>
         <span class="bg-word" data-plx data-plx-speed="-80" aria-hidden="true">LAB</span>
         <canvas id="labAmbientCanvas" class="canvas-bg" aria-hidden="true"></canvas>
@@ -286,7 +286,7 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
             <p class="meta-line">
               This very page ships through the pipeline it documents — validated
               in CI, then synced to S3 —
-              <a href="https://github.com/leop27/mini-release-platform" rel="noreferrer">
+              <a href="https://github.com/leop27" rel="noreferrer">
                 see the repository</a>.
             </p>
             <div class="roadmap">
@@ -377,24 +377,24 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
                 <div class="glass-card__tags"><span>CI</span><span>CD</span></div>
               </div>
             </div>
-            <div class="glass-card" data-info="kong">
+            <div class="glass-card" data-info="api-platform">
               <div class="glass-card__top"><span class="glass-card__id mono">SYS-004</span><button class="glass-card__x" aria-label="close" data-icon="close"></button></div>
               <div class="glass-card__icon" data-icon="gateway"></div>
-              <h3 class="glass-card__title">Kong Gateway</h3>
+              <h3 class="glass-card__title">API Platform</h3>
               <p class="glass-card__sub">Work front · 01</p>
               <div class="glass-card__data">
-                <p>Splitting one monolithic gateway config into squad-owned pieces — runbook, onboarding, tracking. Priority: close 1–2 complete splits in DEV.</p>
+                <p>Splitting one monolithic gateway config into team-owned pieces - runbook, onboarding, tracking. Priority: close one or two complete splits in a production-like environment.</p>
                 <div class="glass-card__tags"><span>API Gateway</span><span>Platform Ops</span></div>
               </div>
             </div>
-            <div class="glass-card" data-info="ecs">
+            <div class="glass-card" data-info="cloud-infra">
               <div class="glass-card__top"><span class="glass-card__id mono">SYS-005</span><button class="glass-card__x" aria-label="close" data-icon="close"></button></div>
               <div class="glass-card__icon" data-icon="loadbalancer"></div>
-              <h3 class="glass-card__title">ECS + ALB</h3>
+              <h3 class="glass-card__title">container services + traffic routing</h3>
               <p class="glass-card__sub">Work front · 02</p>
               <div class="glass-card__data">
-                <p>ECS services, task definitions, ECR, target groups and ALB routing for FaceTec on AWS — mapped into documentation the whole team can use.</p>
-                <div class="glass-card__tags"><span>ECS</span><span>ALB</span></div>
+                <p>Container services, task definitions, image registry and traffic routing - mapped into documentation the whole team can use.</p>
+                <div class="glass-card__tags"><span>container services</span><span>traffic routing</span></div>
               </div>
             </div>
             <div class="glass-card" data-info="ghe">
@@ -565,7 +565,7 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
             <div class="story-scroll__item-content">
               <div class="story-scroll__item-tag">Stop 4 · SRE / Release</div>
               <div class="story-scroll__item-title">Bridging<br>eng &amp; ops</div>
-              <div class="story-scroll__item-text">Kong Split, FaceTec on AWS, GitHub Enterprise — the three fronts running today.</div>
+              <div class="story-scroll__item-text">API Platform Modernization, Cloud Infrastructure Mapping, GitHub Enterprise — the three fronts running today.</div>
             </div>
           </div>
           <div class="story-scroll__item">
@@ -588,8 +588,8 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
       <!-- ══ MARQUEE C — vocabulary ticker ══ -->
       <div class="marquee marquee--light" aria-hidden="true">
         <div class="marquee__track">
-          <span class="marquee__chunk">KONG SPLIT<span class="marquee__sep">/</span>TASK DEFINITION<span class="marquee__sep">/</span>TARGET GROUP<span class="marquee__sep">/</span>RUNBOOK<span class="marquee__sep">/</span>READINESS<span class="marquee__sep">/</span>ROLLBACK<span class="marquee__sep">/</span></span>
-          <span class="marquee__chunk">KONG SPLIT<span class="marquee__sep">/</span>TASK DEFINITION<span class="marquee__sep">/</span>TARGET GROUP<span class="marquee__sep">/</span>RUNBOOK<span class="marquee__sep">/</span>READINESS<span class="marquee__sep">/</span>ROLLBACK<span class="marquee__sep">/</span></span>
+          <span class="marquee__chunk">API PLATFORM<span class="marquee__sep">/</span>RELEASE WORKFLOW<span class="marquee__sep">/</span>ROUTING TARGET<span class="marquee__sep">/</span>RUNBOOK<span class="marquee__sep">/</span>READINESS<span class="marquee__sep">/</span>ROLLBACK<span class="marquee__sep">/</span></span>
+          <span class="marquee__chunk">API PLATFORM<span class="marquee__sep">/</span>RELEASE WORKFLOW<span class="marquee__sep">/</span>ROUTING TARGET<span class="marquee__sep">/</span>RUNBOOK<span class="marquee__sep">/</span>READINESS<span class="marquee__sep">/</span>ROLLBACK<span class="marquee__sep">/</span></span>
         </div>
       </div>
 
@@ -654,7 +654,7 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
           </div>
           <article class="contact-card" data-open-panel="contact-details">
             <p class="contact-card__label">// AVAILABILITY</p>
-            <p>Currently at itti as SRE / Release DevOps, open to conversations about platform operations, release engineering, and cross-team migrations. Click for the full picture.</p>
+            <p>Currently at an enterprise environment as SRE / Release DevOps, open to conversations about platform operations, release engineering, and cross-team migrations. Click for the full picture.</p>
           </article>
         </div>
       </section>
@@ -689,7 +689,7 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
           <ul class="footer__links">
             <li><a href="https://github.com/leop27" rel="noreferrer">GitHub</a></li>
             <li><a href="https://www.linkedin.com/in/leandropicot/" rel="noreferrer">LinkedIn</a></li>
-            <li><a href="https://github.com/leop27/mini-release-platform" rel="noreferrer">This site's pipeline</a></li>
+            <li><a href="https://github.com/leop27" rel="noreferrer">Public GitHub profile</a></li>
           </ul>
         </div>
       </div>
@@ -703,7 +703,7 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
           <a href="https://www.linkedin.com/in/leandropicot/" class="footer__social" target="_blank" rel="noreferrer" aria-label="LinkedIn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
           </a>
-          <a href="https://github.com/leop27/mini-release-platform" class="footer__social" target="_blank" rel="noreferrer" aria-label="Pipeline repository">
+          <a href="https://github.com/leop27" class="footer__social" target="_blank" rel="noreferrer" aria-label="GitHub profile">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 2 7v10l10 5 10-5V7l-10-5Zm0 2.24L19 8l-7 3.5L5 8l7-3.76ZM4 9.62l7 3.5v7.02l-7-3.5V9.62Zm9 10.52v-7.02l7-3.5v7.02l-7 3.5Z"/></svg>
           </a>
         </div>
@@ -713,10 +713,10 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
     <!-- ══ SIDE PANELS (work-front detail drawers) ══ -->
     <div class="panel-overlay" id="panelOverlay"></div>
 
-    <div class="side-panel" id="panel-kong-split">
+    <div class="side-panel" id="panel-api-platform">
       <div class="side-panel__head">
         <div>
-          <div class="side-panel__title">Kong Split</div>
+          <div class="side-panel__title">API Platform Modernization</div>
           <div class="side-panel__subtitle">API Gateway · Platform Ops</div>
           <span class="side-panel__badge">Work front · 01</span>
         </div>
@@ -724,36 +724,36 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
       </div>
       <div class="side-panel__body">
         <p class="side-panel__section-title">What it is</p>
-        <p class="side-panel__text">Splitting one monolithic API gateway configuration into pieces each squad can own and manage independently — instead of a single shared config every team is afraid to touch.</p>
+        <p class="side-panel__text">Splitting one monolithic API gateway configuration into pieces each team can own independently - instead of a single shared config every team is afraid to touch.</p>
         <p class="side-panel__section-title">Scope</p>
         <div class="spec-grid">
           <div class="spec-row"><span class="spec-k">Runbook</span><span class="spec-v">Written &amp; in use</span></div>
           <div class="spec-row"><span class="spec-k">Onboarding</span><span class="spec-v">Per-squad, defined</span></div>
-          <div class="spec-row spec-row--full"><span class="spec-k">Priority</span><span class="spec-v">Close 1–2 complete splits in DEV</span></div>
+          <div class="spec-row spec-row--full"><span class="spec-k">Priority</span><span class="spec-v">Close one or two complete splits in a production-like environment</span></div>
         </div>
         <p class="side-panel__section-title">Why it matters</p>
         <p class="side-panel__text">Team Topologies in real time: redrawing team boundaries, not just moving config. Scope discipline is release discipline.</p>
       </div>
     </div>
 
-    <div class="side-panel" id="panel-facetec-aws">
+    <div class="side-panel" id="panel-cloud-infrastructure">
       <div class="side-panel__head">
         <div>
-          <div class="side-panel__title">FaceTec on AWS</div>
-          <div class="side-panel__subtitle">ECS · Task Definitions · ALB</div>
+          <div class="side-panel__title">Cloud Infrastructure Mapping</div>
+          <div class="side-panel__subtitle">container services · Task Definitions · traffic routing</div>
           <span class="side-panel__badge">Work front · 02</span>
         </div>
         <button class="side-panel__close" data-close-panel aria-label="Close" data-icon="close"></button>
       </div>
       <div class="side-panel__body">
         <p class="side-panel__section-title">What it is</p>
-        <p class="side-panel__text">Deep-work mapping of how a biometric verification system lives in AWS, end to end — from container to traffic routing.</p>
+        <p class="side-panel__text">Deep-work mapping of how a service platform lives in cloud infrastructure, end to end - from container to traffic routing.</p>
         <p class="side-panel__section-title">Surface mapped</p>
         <div class="spec-grid">
-          <div class="spec-row"><span class="spec-k">Compute</span><span class="spec-v">ECS Services</span></div>
+          <div class="spec-row"><span class="spec-k">Compute</span><span class="spec-v">Container Services</span></div>
           <div class="spec-row"><span class="spec-k">Blueprint</span><span class="spec-v">Task Definitions</span></div>
-          <div class="spec-row"><span class="spec-k">Images</span><span class="spec-v">ECR</span></div>
-          <div class="spec-row"><span class="spec-k">Routing</span><span class="spec-v">Target Groups ↔ ALB</span></div>
+          <div class="spec-row"><span class="spec-k">Images</span><span class="spec-v">image registry</span></div>
+          <div class="spec-row"><span class="spec-k">Routing</span><span class="spec-v">Routing Targets ↔ traffic routing</span></div>
         </div>
         <p class="side-panel__section-title">Why it matters</p>
         <p class="side-panel__text">Translates tribal knowledge into operational documentation the whole team can use — not locked in one head.</p>
@@ -792,7 +792,7 @@ git push ──▶ <b>GitHub Actions</b> ──▶ docker build ──▶ smoke 
       </div>
       <div class="side-panel__body">
         <p class="side-panel__section-title">Today</p>
-        <p class="side-panel__text">SRE / Release DevOps at itti, running Kong Split, FaceTec on AWS, and the GitHub Enterprise migration.</p>
+        <p class="side-panel__text">SRE / Release DevOps at an enterprise environment, running API Platform Modernization, Cloud Infrastructure Mapping, and the GitHub Enterprise migration.</p>
         <p class="side-panel__section-title">Open to</p>
         <p class="side-panel__text">Platform operations, release engineering, and cross-team coordination conversations. Outcome-driven, no corporate-speak.</p>
         <a class="side-panel__cta" href="https://www.linkedin.com/in/leandropicot/" rel="noreferrer">Message on LinkedIn</a>

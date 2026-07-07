@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
    PIPELINE — the real path a change travels through
-   mini-release-platform, repo → production. Anchored to
+   portfolio release platform, repo → production. Anchored to
    the sub-repo's .github/workflows (ci.yml, deploy.yml)
    and docs/ (release-flow, architecture, rollback).
    The "roadmap" stages are declared, not done — greyed
@@ -55,7 +55,7 @@ export const PIPELINE = [
         ['Fix', 'Retries curl --fail up to 30× with a readiness wait'],
         ['On failure', 'Prints docker ps -a + logs; always cleans up the container'],
       ],
-      note: '"Started" is not "ready" — the same idea as an ALB Target Group health check.',
+      note: '"Started" is not "ready" — the same idea as an traffic routing Routing Target health check.',
     },
   },
   {

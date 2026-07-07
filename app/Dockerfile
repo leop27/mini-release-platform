@@ -7,5 +7,6 @@ COPY projects/ /usr/share/nginx/html/projects/
 COPY es/ /usr/share/nginx/html/es/
 COPY en/ /usr/share/nginx/html/en/
 COPY pt/ /usr/share/nginx/html/pt/
+COPY hustles/ /usr/share/nginx/html/hustles/
 
 EXPOSE 80

@@ -61,7 +61,7 @@ function buildCard(project) {
 export function initHeroCard() {
   const slot = document.querySelector('.hero-card-slot');
   if (!slot) return;
-  const project = PROJECTS.find((p) => p.slug === 'mini-release-platform') || PROJECTS[0];
+  const project = PROJECTS.find((p) => p.slug === 'portfolio-release-platform') || PROJECTS[0];
   const card = buildCard(project);
   slot.appendChild(card);
   if (fxEnabled()) {

@@ -29,7 +29,7 @@ export function initGlosarioSection() {
       <p class="glosario-kicker">// GLOSSARY</p>
       <h2 class="glosario-headline">The vocabulary, <em>no filler</em>.</h2>
       <div class="glosario-tools">
-        <input id="glosario-filter" class="glosario-filter" type="text" placeholder="filter — e.g. ALB, terraform, rollback…" />
+        <input id="glosario-filter" class="glosario-filter" type="text" placeholder="filter — e.g. traffic routing, terraform, rollback…" />
         <span class="glosario-count" id="glosario-count">${GLOSARIO.length} terms</span>
       </div>
     </header>

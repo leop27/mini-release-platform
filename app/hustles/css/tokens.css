@@ -134,7 +134,7 @@ html[data-theme='dark'] .section--inverted {
    chapters of the page. */
 .section--gradient-bn {
   /* the light stretch stays inside the top padding, so the forced
-     light text below is always sitting on near-black (contrast fix) */
+     light text below is always san enterprise environmentng on near-black (contrast fix) */
   background: linear-gradient(180deg, var(--bg-0) 0%, #17171c 12%, #0b0b0e 55%, #0b0b0e 100%);
 }
 html[data-theme='dark'] .section--gradient-bn {
@@ -145,7 +145,7 @@ html[data-theme='dark'] .section--gradient-bn {
 .section--gradient-bn p:not(.lede) { color: #f4f4f5; }
 .section--gradient-bn .lede { color: rgba(244, 244, 245, 0.72); }
 
-/* ghost background words — large outline-only type sitting
+/* ghost background words — large outline-only type san enterprise environmentng
    behind a section title. Purely decorative. */
 .bg-word {
   position: absolute;
