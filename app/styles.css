@@ -27,6 +27,11 @@ a {
   text-decoration: none;
 }
 
+a:focus-visible {
+  outline: 3px solid #0f5e72;
+  outline-offset: 4px;
+}
+
 p,
 h1,
 h2,
@@ -356,10 +361,12 @@ h3 {
 
 .project-link:focus-visible {
   outline: 3px solid #0f5e72;
-  outline-offset: 4px;
+  outline-offset: -4px;
 }
 
-.project-card .image-placeholder {
+.project-card .image-placeholder,
+.project-card .project-image {
+  height: 210px;
   min-height: 210px;
   border: 0;
   border-bottom: 1px solid rgba(23, 32, 42, 0.13);
@@ -367,12 +374,31 @@ h3 {
 }
 
 .project-image {
-  aspect-ratio: 16 / 10;
-  border-bottom: 1px solid rgba(23, 32, 42, 0.13);
+  object-fit: cover;
 }
 
 .project-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding: 26px;
+}
+
+.project-cta,
+.project-status {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: auto;
+  color: #0f5e72;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.project-status {
+  padding: 7px 10px;
+  border: 1px solid rgba(15, 94, 114, 0.28);
+  border-radius: 6px;
+  background: rgba(15, 94, 114, 0.07);
 }
 
 .tech-list {
@@ -538,5 +564,11 @@ h3 {
   .social-bar a,
   .footer-links a {
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

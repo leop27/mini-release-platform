@@ -3,443 +3,170 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Leandro Picot | Technology, projects and stories</title>
     <meta
       name="description"
-      content="Personal platform for Leandro Picot, SRE / DevOps / Release Engineer."
+      content="Leandro Picot works in infrastructure and automation and builds independent projects around technology, travel, vehicles and content."
     >
-    <title>Leandro Picot | Building Systems. Building Machines. Building Myself.</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-  <body>
+    <link rel="canonical" href="https://leandropicot.com/">
+    <link rel="alternate" hreflang="en" href="https://leandropicot.com/">
+    <link rel="alternate" hreflang="es" href="https://leandropicot.com/es/">
+    <link rel="alternate" hreflang="pt" href="https://leandropicot.com/pt/">
+    <link rel="alternate" hreflang="x-default" href="https://leandropicot.com/">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body id="top">
     <header class="site-header">
       <a class="brand" href="#top">Leandro Picot</a>
       <nav class="nav" aria-label="Primary navigation">
         <a href="#about">About</a>
-        <a href="#devops-lab">DevOps Lab</a>
-        <a href="#media-lab">Media Lab</a>
-        <a href="#machines">Machines</a>
-        <a href="#featured-projects">Projects</a>
-        <a href="#journal">Journal</a>
+        <a href="#projects">Projects</a>
+        <a href="#work">Work</a>
         <a href="#contact">Contact</a>
-        <span class="language-switcher" aria-label="Language selector">
-          <a href="es/index.html" hreflang="es" lang="es">ES</a>
-          <a href="en/index.html" hreflang="en" lang="en">EN</a>
-          <a href="pt/index.html" hreflang="pt" lang="pt">PT</a>
-        </span>
-</nav>
+        <div class="language-switcher" role="group" aria-label="Language selector">
+          <a href="/" hreflang="en" lang="en" aria-current="page">EN</a>
+          <a href="/es/" hreflang="es" lang="es">ES</a>
+          <a href="/pt/" hreflang="pt" lang="pt">PT</a>
+        </div>
+      </nav>
     </header>
 
-    <main id="top">
-      <section class="hero section">
-        <div class="hero-copy">
-          <p class="eyebrow">SRE / DevOps / Release Engineer</p>
-          <h1>
-            Building Systems.<br>
-            Building Platforms.<br>
-            Building Solutions.
-          </h1>
-          <div class="social-bar" aria-label="Social links">
-            <a href="https://github.com/leop27" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/leandropicot/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://www.youtube.com/@kai2ensan" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <a href="https://www.instagram.com/lpico7/" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="mailto:leandropicot@gmail.com">Email</a>
-          </div>
-          <p class="hero-text">
-            SRE / DevOps / Release Engineer focused on automation, platform
-            engineering, cloud infrastructure and continuous delivery.
+    <main>
+      <section class="hero section" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">Technology · Independent projects · Documentation</p>
+          <h1 id="hero-title">Leandro Picot</h1>
+          <p class="hero-text">Technology, projects and stories in progress.</p>
+          <p>
+            I work in infrastructure and automation, while developing independent projects
+            around travel, vehicles, documentation and content creation.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#featured-projects">View Projects</a>
-            <a class="button secondary" href="#devops-lab">DevOps Lab</a>
+            <a class="button primary" href="#projects">View projects</a>
+            <a class="button secondary" href="/hustles/">Discover Southustles</a>
           </div>
         </div>
-        <aside class="hero-panel" aria-label="Platform focus">
+        <figure class="hero-panel">
           <img
             class="hero-image"
-            src="assets/images/espalda_lago.JPG"
-            alt="Leandro looking at a lake during a Renault 4 travel memory"
+            src="/assets/images/espalda_lago.JPG"
+            alt="Leandro looking across a Patagonian lake"
           >
-          <span>01 DevOps Lab</span>
-          <span>02 Machines</span>
-          <span>03 Journal</span>
-        </aside>
+          <span>Patagonia · Work in progress</span>
+        </figure>
       </section>
 
-      <section id="about" class="section split">
-        <div>
+      <section id="about" class="section split" aria-labelledby="about-title">
+        <div class="section-heading">
           <p class="eyebrow">About</p>
-          <h2>I'm Leandro Picot.</h2>
+          <h2 id="about-title">Technology and independent projects.</h2>
         </div>
         <div class="section-body">
           <p>
-            My professional path did not start in technology. For more than a
-            decade, I worked in the railway industry, eventually becoming a
-            train driver. That experience shaped the way I think about
-            responsibility, systems, timing, and operational discipline.
-          </p>
-          <p>
-            Over time, I became increasingly interested in software, automation,
-            and infrastructure. Today I work as an SRE / DevOps / Release
-            Engineer, helping teams improve delivery, reliability, and release
-            processes.
-          </p>
-          <p>
-            Outside software, I build and document mechanical projects, from
-            classic vehicles to personal experiments. This site is both a
-            professional portfolio and a living notebook about building systems,
-            building machines, and building myself.
+            I am a technology professional and independent project creator. I combine
+            systems, artificial intelligence, documentation and narrative to turn real
+            ideas and experiences into concrete work. This page brings together a
+            selection of what I do.
           </p>
         </div>
       </section>
 
-      <section id="devops-lab" class="section">
+      <section id="projects" class="section" aria-labelledby="projects-title">
         <div class="section-heading">
-          <p class="eyebrow">DevOps Lab</p>
-          <h2>Small platforms that explain real workflows.</h2>
-          <p>
-            A space for hands-on infrastructure, CI/CD, release automation, and
-            operational documentation.
-          </p>
-        </div>
-        <div class="cards">
-          <article class="card">
-            <p class="card-kicker">Platform migration</p>
-            <h3>GitHub Enterprise Migration</h3>
-            <p>
-              Large-scale repository migration, governance alignment, access
-              management and platform adoption.
-            </p>
-          </article>
-          <article class="card">
-            <p class="card-kicker">API platform</p>
-            <h3>Kong Platform Migration</h3>
-            <p>
-              API gateway ownership mapping, migration planning and squad
-              onboarding.
-            </p>
-          </article>
-          <article class="card">
-            <p class="card-kicker">Cloud infrastructure</p>
-            <h3>AWS & Terraform Labs</h3>
-            <p>
-              Infrastructure as Code, CloudFront, S3 static hosting, CI/CD
-              pipelines and cloud experiments.
-            </p>
-          </article>
-          <article class="card">
-            <p class="card-kicker">Automation</p>
-            <h3>AI Automation Lab</h3>
-            <p>
-              Cursor, Codex, AI agents, operational automation and documentation
-              workflows.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section id="media-lab" class="section">
-        <div class="section-heading">
-          <p class="eyebrow">Media Lab</p>
-          <h2>YouTube, workshop logs and road stories.</h2>
-          <p>
-            YouTube, automotive projects, workshop logs and road stories -
-            documenting the process of building, restoring and learning in
-            public.
-          </p>
-        </div>
-        <div class="cards">
-          <article class="card">
-            <p class="card-kicker">Classic cars</p>
-            <h3>Renault 4 Journey</h3>
-            <p>
-              Travel memories, simple mechanics and the stories that come from
-              learning on the road with a classic Renault 4.
-            </p>
-          </article>
-          <article class="card">
-            <p class="card-kicker">Restoration</p>
-            <h3>Peugeot 504 Restoration</h3>
-            <p>
-              A long-term mechanical project about diagnosis, repair sequences,
-              documentation and rebuilding patiently.
-            </p>
-          </article>
-          <article class="card">
-            <p class="card-kicker">Workshop</p>
-            <h3>Workshop Logs</h3>
-            <p>
-              Notes and videos from hands-on experiments, tools, repairs and
-              the practical side of learning by doing.
-            </p>
-          </article>
-          <article class="card">
-            <p class="card-kicker">Road stories</p>
-            <h3>Road Trips & Classic Cars</h3>
-            <p>
-              A media layer for classic vehicles, routes, memories and the
-              process of building in public.
-            </p>
-          </article>
-        </div>
-        <div class="section-actions">
-          <a
-            class="button primary"
-            href="https://www.youtube.com/@kai2ensan"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Follow the Journey
-          </a>
-          <a
-            class="button secondary"
-            href="https://www.instagram.com/lpico7/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Instagram
-          </a>
-        </div>
-      </section>
-
-      <section id="machines" class="section split">
-        <div>
-          <p class="eyebrow">Machines</p>
-          <h2>Mechanical work as another kind of systems thinking.</h2>
-        </div>
-        <div class="section-body">
-          <p>
-            Machines teach diagnosis, patience, sequencing, and respect for
-            cause and effect. Those lessons carry directly into engineering
-            production systems.
-          </p>
-          <div class="machine-gallery" aria-label="Machine project images">
-            <figure class="image-card">
-              <img
-                src="assets/images/espalda_lago.JPG"
-                alt="Renault 4 travel memory beside a lake"
-              >
-              <figcaption>Renault 4 road memory</figcaption>
-            </figure>
-            <figure class="image-card">
-              <img
-                src="assets/images/capot_abierto.JPG"
-                alt="Renault 4 with open hood during mechanical inspection"
-              >
-              <figcaption>Mechanical thinking in practice</figcaption>
-            </figure>
-          </div>
-          <div class="timeline">
-            <div>
-              <span>Travel memories</span>
-              <strong>Renault 4</strong>
-              <p>
-                A symbol of movement, simple mechanics, and memorable road
-                stories.
-              </p>
-            </div>
-            <div>
-              <span>Restoration project</span>
-              <strong>Peugeot 504</strong>
-              <p>
-                A long-term project about rebuilding carefully, learning by
-                doing, and respecting the original machine.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="featured-projects" class="section">
-        <div class="section-heading">
-          <p class="eyebrow">Featured Projects</p>
-          <h2>Professional delivery, platform work and automation experiments.</h2>
-          <p>
-            Selected work that connects enterprise migration, API platform
-            coordination, cloud delivery and AI-assisted operations.
-          </p>
+          <p class="eyebrow">Projects</p>
+          <h2 id="projects-title">Real work currently in development.</h2>
         </div>
         <div class="project-grid">
           <article class="project-card">
-            <a class="project-link" href="projects/github-enterprise-migration.html" aria-label="Read GitHub Enterprise Migration project details">
-            <div
-              class="image-placeholder devops-placeholder"
-              role="img"
-              aria-label="Placeholder image for GitHub Enterprise Migration project"
-            >
-              <span>Enterprise migration</span>
-            </div>
-            <div class="project-content">
-              <p class="card-kicker">Release Engineering / Platform Coordination</p>
-              <h3>GitHub Enterprise Migration</h3>
-              <p>
-                Coordinated repository migrations from legacy platforms to
-                GitHub Enterprise, supporting governance alignment, access
-                management, enterprise onboarding and migration tracking across
-                multiple engineering teams.
-              </p>
-              <p class="tech-list">GitHub Enterprise, Bitbucket, Okta, EMU, Git</p>
-            </div>
+            <a class="project-link" href="/hustles/" aria-label="Open Southustles">
+              <div class="image-placeholder devops-placeholder" aria-hidden="true">S</div>
+              <div class="project-content">
+                <p class="card-kicker">Workspace · Experimentation</p>
+                <h3>Southustles</h3>
+                <p>
+                  A working and experimental space around technology, automation, content
+                  and digital projects.
+                </p>
+                <span class="project-cta">Open project →</span>
+              </div>
             </a>
           </article>
 
           <article class="project-card">
-            <a class="project-link" href="projects/kong-platform-split.html" aria-label="Read Kong Platform Split project details">
-            <div
-              class="image-placeholder devops-placeholder"
-              role="img"
-              aria-label="Placeholder image for Kong Platform Split project"
+            <a
+              class="project-link"
+              href="https://github.com/godofredoaltavista-afk/southhustles-media-agency/tree/main/01%20-%20R4%20Bariloche"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open the Renault 4 Patagonia project on GitHub"
             >
-              <span>API platform</span>
-            </div>
-            <div class="project-content">
-              <p class="card-kicker">Platform Migration</p>
-              <h3>Kong Platform Split</h3>
-              <p>
-                Supported API platform migration initiatives through ownership
-                mapping, migration planning, documentation and squad onboarding
-                workflows.
-              </p>
-              <p class="tech-list">Kong, GitHub, Terraform, AWS</p>
-            </div>
+              <img
+                class="project-image"
+                src="/assets/images/capot_abierto.JPG"
+                alt="Renault 4 with its hood open during the Patagonia journey"
+                loading="lazy"
+              >
+              <div class="project-content">
+                <p class="card-kicker">Documentary · In progress</p>
+                <h3>Renault 4 Patagonia</h3>
+                <p>
+                  A journey without a fully defined destination, made in a Renault 4 with
+                  Franco and Roma. It is now becoming a documentary.
+                </p>
+                <span class="project-cta">View documentation →</span>
+              </div>
             </a>
           </article>
 
-          <article class="project-card">
-            <a class="project-link" href="projects/mini-release-platform.html" aria-label="Read Mini Release Platform project details">
-            <div
-              class="image-placeholder devops-placeholder"
-              role="img"
-              aria-label="Placeholder image for Mini Release Platform project"
-            >
-              <span>Cloud delivery</span>
-            </div>
+          <article class="project-card project-card--static">
+            <div class="image-placeholder peugeot-placeholder" aria-hidden="true">504</div>
             <div class="project-content">
-              <p class="card-kicker">Personal Project</p>
-              <h3>Mini Release Platform</h3>
+              <p class="card-kicker">Restoration · In development</p>
+              <h3>Peugeot 504</h3>
               <p>
-                Built and deployed a cloud-hosted portfolio platform using
-                Infrastructure as Code, CI/CD automation and global content
-                delivery.
+                A complete Peugeot 504 restoration and a record of the process, from
+                mechanical and body work to its return to the road.
               </p>
-              <p class="tech-list">HTML, CSS, GitHub Actions, Terraform, AWS S3, CloudFront</p>
+              <span class="project-status">In development</span>
             </div>
-            </a>
-          </article>
-
-          <article class="project-card">
-            <a class="project-link" href="projects/ai-automation-workspace.html" aria-label="Read AI Automation Workspace project details">
-            <div
-              class="image-placeholder devops-placeholder"
-              role="img"
-              aria-label="Placeholder image for AI Automation Workspace project"
-            >
-              <span>AI automation</span>
-            </div>
-            <div class="project-content">
-              <p class="card-kicker">Automation Lab</p>
-              <h3>AI Automation Workspace</h3>
-              <p>
-                Experimenting with AI agents, operational automation,
-                documentation workflows and productivity systems using modern AI
-                tooling.
-              </p>
-              <p class="tech-list">Cursor, Codex, Ollama, GitHub, Python</p>
-            </div>
-            </a>
           </article>
         </div>
       </section>
 
-      <section id="journal" class="section">
+      <section id="work" class="section split" aria-labelledby="work-title">
         <div class="section-heading">
-          <p class="eyebrow">Journal</p>
-          <h2>Learning in public, one system at a time.</h2>
+          <p class="eyebrow">Work</p>
+          <h2 id="work-title">Infrastructure, processes and useful automation.</h2>
+        </div>
+        <div class="section-body">
           <p>
-            Notes on release engineering, infrastructure, restoration, and the
-            personal process of becoming better at the work.
+            I currently work in infrastructure, DevOps and technology process management.
+            I also develop tools and workflows supported by artificial intelligence.
           </p>
         </div>
-        <div class="journal-grid">
-          <article>
-            <span>DevOps</span>
-            <h3>What a release pipeline should prove</h3>
-            <p>
-              A good pipeline does more than run commands. It builds trust in a
-              change before that change reaches users.
-            </p>
-          </article>
-          <article>
-            <span>Machines</span>
-            <h3>Restoration is debugging with metal</h3>
-            <p>
-              Start with symptoms, inspect the system, make one change at a
-              time, and verify the result.
-            </p>
-          </article>
-          <article>
-            <span>Personal</span>
-            <h3>Building myself</h3>
-            <p>
-              The work is technical, but the practice is also personal:
-              consistency, focus, and the humility to keep learning.
-            </p>
-          </article>
-        </div>
       </section>
 
-      <section id="next-milestones" class="section split">
-        <div>
-          <p class="eyebrow">Next Milestones</p>
-          <h2>Preparing the platform for real personal content.</h2>
-        </div>
-        <div class="milestone-list">
-          <div>
-            <span>01</span>
-            <p>Add real photos from the Renault 4, Peugeot 504, and DevOps Lab work.</p>
-          </div>
-          <div>
-            <span>02</span>
-            <p>Publish the first Peugeot 504 restoration log.</p>
-          </div>
-          <div>
-            <span>03</span>
-            <p>Create a dedicated DevOps Lab page for technical project writeups.</p>
-          </div>
-          <div>
-            <span>04</span>
-            <p>Add a project timeline that connects releases, repairs, and learning notes.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="section contact">
+      <section id="contact" class="section contact" aria-labelledby="contact-title">
         <p class="eyebrow">Contact</p>
-        <h2>Let's Build Something</h2>
-        <p>
-          This platform is a living portfolio for practical engineering work,
-          mechanical projects, and personal learning.
-        </p>
+        <h2 id="contact-title">Let’s talk.</h2>
+        <p>For projects, collaborations or professional work.</p>
         <div class="contact-links">
-          <a href="https://github.com/leop27" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="mailto:leandropicot@gmail.com">Email</a>
           <a href="https://www.linkedin.com/in/leandropicot/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/leop27" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://www.youtube.com/@kai2ensan" target="_blank" rel="noopener noreferrer">YouTube</a>
           <a href="https://www.instagram.com/lpico7/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="mailto:leandropicot@gmail.com">Email</a>
         </div>
       </section>
     </main>
 
     <footer class="footer">
       <span>Leandro Picot</span>
-      <nav class="footer-links" aria-label="Footer social links">
-        <a href="https://github.com/leop27" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/leandropicot/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://www.youtube.com/@kai2ensan" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://www.instagram.com/lpico7/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="mailto:leandropicot@gmail.com">Email</a>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="#projects">Projects</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
       </nav>
-      <span><a href="hustles/index.html">Frontend Lab</a></span>
     </footer>
   </body>
 </html>
