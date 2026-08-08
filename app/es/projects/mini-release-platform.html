@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mini Release Platform | Leandro Picot</title>
+    <meta name="description" content="Caso de estudio factual de Mini Release Platform: desde el control de versiones y la validación hasta el despliegue automatizado en AWS.">
+    <link rel="canonical" href="https://leopicot.com/es/projects/mini-release-platform.html">
+    <link rel="alternate" hreflang="en" href="https://leopicot.com/projects/mini-release-platform.html">
+    <link rel="alternate" hreflang="es" href="https://leopicot.com/es/projects/mini-release-platform.html">
+    <link rel="alternate" hreflang="pt" href="https://leopicot.com/pt/projects/mini-release-platform.html">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body id="top">
+    <header class="site-header">
+      <a class="brand" href="/es/">Leandro Picot</a>
+      <nav class="nav" aria-label="Navegación del proyecto">
+        <a href="/es/">Inicio</a><a href="/es/#projects">Proyectos</a>
+        <div class="language-switcher" role="group" aria-label="Selector de idioma">
+          <a href="/projects/mini-release-platform.html" lang="en">EN</a>
+          <a href="/es/projects/mini-release-platform.html" lang="es" aria-current="page">ES</a>
+          <a href="/pt/projects/mini-release-platform.html" lang="pt">PT</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="project-hero section">
+        <p class="eyebrow">Laboratorio DevOps · Desplegado</p>
+        <h1>Mini Release Platform</h1>
+        <p class="hero-text">Un pequeño sistema funcional de entrega construido para practicar y documentar el recorrido desde el control de versiones hasta el despliegue automatizado en AWS.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/leop27/mini-release-platform" target="_blank" rel="noopener noreferrer">Ver repositorio</a>
+          <a class="button secondary" href="/es/#projects">Volver a proyectos</a>
+        </div>
+      </section>
+      <section class="section case-study-intro" aria-labelledby="current-title">
+        <div class="section-heading"><p class="eyebrow">Implementación actual</p><h2 id="current-title">Simple por diseño. Funcional en la práctica.</h2></div>
+        <p>El repositorio empaqueta un sitio estático con Docker, lo valida mediante GitHub Actions, administra los recursos de alojamiento en S3 con Terraform y despliega automáticamente las actualizaciones que llegan a la rama principal.</p>
+        <div class="architecture-flow" aria-label="Flujo de entrega actual"><span>GitHub</span><span>GitHub Actions</span><span>Validación Docker</span><span>AWS S3</span></div>
+      </section>
+      <section class="project-detail section" aria-label="Evidencia del proyecto">
+        <article><p class="eyebrow">Qué existe hoy</p><ul><li>Portfolio estático multilingüe construido con HTML y CSS.</li><li>Imagen Docker servida localmente con Nginx.</li><li>Controles de CI sobre estructura, respuesta del servicio y Terraform.</li><li>Sincronización automatizada hacia un sitio web en AWS S3.</li></ul></article>
+        <article><p class="eyebrow">Aprendizaje operativo</p><ul><li>Separación entre validación y despliegue.</li><li>Reintentos de readiness incorporados después de diagnosticar una condición de carrera al iniciar Nginx.</li><li>Documentación de release, rollback y validación local.</li></ul></article>
+        <article><p class="eyebrow">Alcance actual</p><p>Es un entorno de aprendizaje y un proyecto de portfolio, no una plataforma interna a escala productiva. Su valor reside en el proceso funcional y su documentación.</p></article>
+        <article><p class="eyebrow">Próximas direcciones</p><ul><li>GitHub OIDC y permisos de AWS más restringidos.</li><li>Estado remoto de Terraform.</li><li>CloudFront y HTTPS.</li><li>Monitoreo y visibilidad operativa.</li></ul></article>
+      </section>
+    </main>
+    <footer class="footer"><span>Mini Release Platform</span><nav class="footer-links" aria-label="Enlaces del pie"><a href="/es/">Inicio</a><a href="https://github.com/leop27/mini-release-platform" target="_blank" rel="noopener noreferrer">Repositorio</a><a href="https://www.linkedin.com/in/leandropicot/" target="_blank" rel="noopener noreferrer">LinkedIn</a></nav></footer>
+  </body>
+</html>

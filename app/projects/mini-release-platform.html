@@ -3,79 +3,89 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta
-      name="description"
-      content="Mini Release Platform project detail for Leandro Picot's portfolio."
-    >
     <title>Mini Release Platform | Leandro Picot</title>
-    <link rel="stylesheet" href="../styles.css">
+    <meta name="description" content="A factual case study of Leandro Picot's Mini Release Platform, from source control and validation to automated deployment on AWS.">
+    <link rel="canonical" href="https://leopicot.com/projects/mini-release-platform.html">
+    <link rel="alternate" hreflang="en" href="https://leopicot.com/projects/mini-release-platform.html">
+    <link rel="alternate" hreflang="es" href="https://leopicot.com/es/projects/mini-release-platform.html">
+    <link rel="alternate" hreflang="pt" href="https://leopicot.com/pt/projects/mini-release-platform.html">
+    <link rel="stylesheet" href="/styles.css">
   </head>
-  <body>
+  <body id="top">
     <header class="site-header">
-      <a class="brand" href="../index.html">Leandro Picot</a>
+      <a class="brand" href="/">Leandro Picot</a>
       <nav class="nav" aria-label="Project navigation">
-        <a href="../index.html">Home</a>
-        <a href="../index.html#projects">Projects</a>
+        <a href="/">Home</a>
+        <a href="/#projects">Projects</a>
+        <div class="language-switcher" role="group" aria-label="Language selector">
+          <a href="/projects/mini-release-platform.html" lang="en" aria-current="page">EN</a>
+          <a href="/es/projects/mini-release-platform.html" lang="es">ES</a>
+          <a href="/pt/projects/mini-release-platform.html" lang="pt">PT</a>
+        </div>
       </nav>
     </header>
 
     <main>
       <section class="project-hero section">
-        <p class="eyebrow">Personal Project</p>
+        <p class="eyebrow">DevOps Lab · Deployed</p>
         <h1>Mini Release Platform</h1>
         <p class="hero-text">
-          A working delivery workflow built with static HTML/CSS, GitHub Actions,
-          Docker, Terraform-managed AWS infrastructure and automated deployment to S3.
+          A small working delivery system built to practice and document the path from
+          source control to automated deployment on AWS.
         </p>
-      </section>
-
-      <section class="section">
         <div class="hero-actions">
           <a class="button primary" href="https://github.com/leop27/mini-release-platform" target="_blank" rel="noopener noreferrer">View repository</a>
-          <a class="button secondary" href="../index.html">View live portfolio</a>
+          <a class="button secondary" href="/#projects">Back to projects</a>
         </div>
       </section>
 
-      <section class="project-detail section">
+      <section class="section case-study-intro" aria-labelledby="current-title">
+        <div class="section-heading">
+          <p class="eyebrow">Current implementation</p>
+          <h2 id="current-title">Simple by design. Working in practice.</h2>
+        </div>
+        <p>
+          The repository packages a static site with Docker, validates it in GitHub
+          Actions, manages its S3 hosting resources with Terraform and deploys updates
+          automatically after changes reach the main branch.
+        </p>
+        <div class="architecture-flow" aria-label="Current delivery flow">
+          <span>GitHub</span><span>GitHub Actions</span><span>Docker validation</span><span>AWS S3</span>
+        </div>
+      </section>
+
+      <section class="project-detail section" aria-label="Project evidence">
         <article>
-          <p class="eyebrow">Context</p>
+          <p class="eyebrow">What exists today</p>
+          <ul>
+            <li>Static multilingual portfolio built with HTML and CSS.</li>
+            <li>Docker image served locally with Nginx.</li>
+            <li>CI checks for structure, runtime response and Terraform.</li>
+            <li>Automated synchronization to an AWS S3 website.</li>
+          </ul>
+        </article>
+        <article>
+          <p class="eyebrow">Operational learning</p>
+          <ul>
+            <li>Separated validation from deployment responsibilities.</li>
+            <li>Added readiness retries after diagnosing an Nginx startup race.</li>
+            <li>Documented release, rollback and local validation procedures.</li>
+          </ul>
+        </article>
+        <article>
+          <p class="eyebrow">Current scope</p>
           <p>
-            The project demonstrates a compact release platform: source control,
-            Docker validation, CI, IaC, cloud hosting and automated static site
-            deployment.
+            This is a learning environment and portfolio project, not a production-scale
+            internal platform. Its value is the working process and its documentation.
           </p>
         </article>
         <article>
-          <p class="eyebrow">Responsibilities</p>
+          <p class="eyebrow">Next directions</p>
           <ul>
-            <li>Built the static portfolio landing page with plain HTML and CSS.</li>
-            <li>Created Docker-based local validation with Nginx.</li>
-            <li>Configured CI and deployment workflows in GitHub Actions.</li>
-            <li>Provisioned AWS hosting infrastructure with Terraform.</li>
-          </ul>
-        </article>
-        <article>
-          <p class="eyebrow">Challenges</p>
-          <ul>
-            <li>Keeping the platform simple while still showing a complete delivery flow.</li>
-            <li>Separating validation, infrastructure and deployment responsibilities.</li>
-            <li>Documenting operational decisions clearly for portfolio review.</li>
-          </ul>
-        </article>
-        <article>
-          <p class="eyebrow">Outcomes</p>
-          <ul>
-            <li>Delivered a static personal platform with automated cloud deployment.</li>
-            <li>Created a repeatable validation path using Docker and GitHub Actions.</li>
-            <li>Established a foundation for future content, project pages and media work.</li>
-          </ul>
-        </article>
-        <article>
-          <p class="eyebrow">Lessons Learned</p>
-          <ul>
-            <li>Small systems can still show complete release discipline.</li>
-            <li>Readiness checks and diagnostics make CI more trustworthy.</li>
-            <li>Static hosting is a strong foundation for simple portfolio delivery.</li>
+            <li>GitHub OIDC and more restricted AWS permissions.</li>
+            <li>Terraform remote state.</li>
+            <li>CloudFront and HTTPS.</li>
+            <li>Monitoring and operational visibility.</li>
           </ul>
         </article>
       </section>
@@ -83,14 +93,11 @@
 
     <footer class="footer">
       <span>Mini Release Platform</span>
-      <nav class="footer-links" aria-label="Footer social links">
-        <a href="https://github.com/leop27" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="/">Home</a>
+        <a href="https://github.com/leop27/mini-release-platform" target="_blank" rel="noopener noreferrer">Repository</a>
         <a href="https://www.linkedin.com/in/leandropicot/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://www.youtube.com/@kai2ensan" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://www.instagram.com/lpico7/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="mailto:leandropicot@gmail.com">Email</a>
       </nav>
-      <a href="../index.html">Back to Home</a>
     </footer>
   </body>
 </html>
