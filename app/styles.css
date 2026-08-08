@@ -233,6 +233,11 @@ h3 {
   border-top: 1px solid rgba(23, 32, 42, 0.1);
 }
 
+.split.section {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
 .section-body {
   font-size: 1.05rem;
 }
