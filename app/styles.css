@@ -234,8 +234,8 @@ h3 {
 }
 
 .split.section {
-  padding-top: 64px;
-  padding-bottom: 64px;
+  padding-top: 52px;
+  padding-bottom: 52px;
 }
 
 .section-body {
@@ -505,6 +505,11 @@ h3 {
 .contact {
   border-top: 1px solid rgba(23, 32, 42, 0.1);
   text-align: left;
+}
+
+.contact.section {
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 .contact p {
