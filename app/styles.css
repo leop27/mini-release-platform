@@ -391,13 +391,24 @@ h3 {
   border-radius: 0;
 }
 
-.project-image {
-  object-fit: cover;
+/* Keep the full artwork visible inside each fixed-height card header. */
+.project-card .project-image {
+  width: 100%;
+  padding: 14px;
+  object-fit: contain;
+  object-position: center;
   background: #e9efee;
 }
 
-.project-image--triada {
-  object-fit: contain;
+/* Tecno Store has a wide wordmark: leave it room rather than cropping it. */
+.project-card .project-image[src*="tecno-store"] {
+  padding: 22px 12px;
+  background: #ffffff;
+}
+
+/* Preserve the diagram's dark canvas and its three complete circles. */
+.project-card .project-image--triada {
+  padding: 8px;
   background: #172c34;
 }
 
