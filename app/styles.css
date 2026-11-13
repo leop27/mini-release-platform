@@ -419,7 +419,7 @@ h3 {
 }
 
 /* The original Tecno Store asset is a small, wide wordmark. */
-.project-media:has(.project-image[src*="tecno-store"]) {
+.project-media--tecno {
   background: #ffffff;
 }
 
@@ -427,7 +427,7 @@ h3 {
   padding: 26px 20px;
 }
 
-.project-media:has(.project-image--triada) {
+.project-media--triada {
   background: #172c34;
 }
 
