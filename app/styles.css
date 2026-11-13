@@ -314,6 +314,18 @@ h3 {
     #ffffff;
 }
 
+.tecno-placeholder {
+  background:
+    linear-gradient(135deg, rgba(15, 94, 114, 0.22), rgba(23, 32, 42, 0.16)),
+    #f7f6f1;
+}
+
+.triada-placeholder {
+  background:
+    linear-gradient(135deg, rgba(122, 81, 48, 0.17), rgba(15, 94, 114, 0.15)),
+    #ffffff;
+}
+
 .peugeot-placeholder {
   background:
     linear-gradient(135deg, rgba(23, 32, 42, 0.16), rgba(15, 94, 114, 0.1)),
