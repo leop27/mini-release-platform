@@ -108,10 +108,8 @@ p {
 
 .hero {
   min-height: calc(100vh - 68px);
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  display: flex;
   align-items: center;
-  gap: 56px;
 }
 
 .eyebrow,
