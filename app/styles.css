@@ -202,6 +202,7 @@ h3 {
 }
 
 .hero-panel {
+  min-width: 0;
   display: grid;
   gap: 14px;
   padding: 28px;
@@ -212,11 +213,13 @@ h3 {
 }
 
 .hero-image {
-  width: 100%;
-  aspect-ratio: 4 / 3;
   display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
   border-radius: 6px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .hero-panel span {
@@ -392,6 +395,7 @@ h3 {
 
 .project-image {
   object-fit: cover;
+  background: #e9efee;
 }
 
 .project-content {
