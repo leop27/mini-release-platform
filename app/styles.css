@@ -391,7 +391,7 @@ h3 {
   border-radius: 0;
 }
 
-/* The frame, not the SVG's intrinsic dimensions, controls card layout. */
+/* Full-bleed project artwork with no inset padding or clipping. */
 .project-media {
   position: relative;
   flex: 0 0 210px;
@@ -399,7 +399,7 @@ h3 {
   min-width: 0;
   height: 210px;
   overflow: hidden;
-  background: #e9efee;
+  background: #152631;
   border-bottom: 1px solid rgba(23, 32, 42, 0.13);
 }
 
@@ -412,27 +412,23 @@ h3 {
   min-width: 0;
   max-width: 100%;
   max-height: 100%;
-  padding: 12px;
+  padding: 0;
   border: 0;
   object-fit: contain;
   object-position: center;
 }
 
-/* The original Tecno Store asset is a small, wide wordmark. */
+/* Match each artwork's canvas so the whole header looks seamless. */
 .project-media--tecno {
   background: #ffffff;
 }
 
-.project-media .project-image[src*="tecno-store"] {
-  padding: 26px 20px;
-}
-
 .project-media--triada {
-  background: #172c34;
+  background: #00151e;
 }
 
-.project-media .project-image--triada {
-  padding: 8px;
+.project-media:has(.project-image[src*="peugeot-504"]) {
+  background: #e7e5dd;
 }
 
 .project-content {
