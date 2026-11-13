@@ -396,6 +396,11 @@ h3 {
   background: #e9efee;
 }
 
+.project-image--triada {
+  object-fit: contain;
+  background: #172c34;
+}
+
 .project-content {
   display: flex;
   flex: 1;
