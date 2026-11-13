@@ -375,6 +375,7 @@ h3 {
   display: flex;
   flex: 1;
   flex-direction: column;
+  min-width: 0;
 }
 
 .project-link:focus-visible {
@@ -393,7 +394,11 @@ h3 {
 
 /* Keep the full artwork visible inside each fixed-height card header. */
 .project-card .project-image {
+  display: block;
+  flex: 0 0 210px;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   padding: 14px;
   object-fit: contain;
   object-position: center;
